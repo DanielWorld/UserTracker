@@ -1,5 +1,7 @@
 package com.namgyuworld.usertracker.util;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -101,4 +103,22 @@ public class AppUtil {
         }
         return false;
     }
+
+    public static final Account getFirstGoogleAccount(Context context){
+        Account[] accounts = getGoogleAccounts(context);
+        if(accounts == null || accounts.length == 0){
+            return null;
+        }
+        return accounts[0];
+    }
+    /**
+     * Get all google accounts in device
+     * @param context
+     * @return
+     */
+    private static final Account[] getGoogleAccounts(Context context){
+        AccountManager am = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
+        return am.getAccountsByType("com.google");
+    }
+
 }

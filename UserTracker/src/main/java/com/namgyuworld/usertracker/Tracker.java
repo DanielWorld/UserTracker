@@ -43,7 +43,7 @@ public class Tracker {
             LOG.disableLog();
         }
 
-        mSendTrackingInfo = new SendTrackingInfo();
+        mSendTrackingInfo = new SendTrackingInfo(context);
 
         // Try to send missing tracking info
         TrackingService.startService(context);
@@ -59,10 +59,10 @@ public class Tracker {
         }
     }
 
-    protected void send(List<TrackingModel> trackingModel){
+    protected void send(TrackingModel trackingModel){
         LOG.v(TAG, "send tracking: " + trackingModel.toString());
         checkAppId();
 
-//        mSendTrackingInfo.transmit(trackingModel);
+        mSendTrackingInfo.transmit(trackingModel);
     }
 }

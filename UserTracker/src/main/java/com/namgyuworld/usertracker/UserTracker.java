@@ -56,12 +56,11 @@ public class UserTracker {
 
     /**
      * Called when app sends certain action
-     * @param action
-     * @param param
+     * @param tag
      */
-    public final void sendAction(String action, String param) {
+    public final void sendAction(String tag) {
         if(Build.VERSION.SDK_INT >= 10) {
-            mTracker.send(mTrackerFactory.newActionTracking(action, param));
+            mTracker.send(mTrackerFactory.newActionTracking(tag));
         }
     }
 }

@@ -22,7 +22,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_DATA = "data";
 
-    public SQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

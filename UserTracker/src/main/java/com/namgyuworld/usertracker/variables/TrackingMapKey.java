@@ -7,12 +7,16 @@ package com.namgyuworld.usertracker.variables;
  */
 public class TrackingMapKey {
 
+    public static final String TRACKING_APP_ID = "tracking_app_id";
+    public static final String TRACKING_TAG = "tracking_tag";
+
     public static final String TRACKING_EVENT = "tracking_event";
     public static final String TRACKING_TYPE = "tracking_type";
     public static final String TRACKING_OCCUR_TIME = "tracking_occur_time";
 
     public static final String INSTALL_REFERRER = "install_referrer";
     public static final String GOOGLE_ACCOUNT = "hashed_google_account";
+    public static final String GOOGLE_AD_ID = "google_ad_id";
     public static final String OS_VERSION = "os_ver";
     public static final String APP_PACKAGE_NAME = "app_package_name";
     public static final String APP_VERSION_CODE = "app_ver_code";

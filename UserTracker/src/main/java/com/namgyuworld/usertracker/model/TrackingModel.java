@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * Created by danielpark on 6/16/15.
@@ -53,6 +54,8 @@ public class TrackingModel{
     public TrackingModel() {
         if (trackingList == null)
             trackingList = new ArrayList<>();
+        // Initialize list when TrackingModel is declared.
+        trackingList.clear();
     }
 
     public TrackingModel(String key, String value){
@@ -91,6 +94,23 @@ public class TrackingModel{
             // If same key wasn't found, then just add new one.
             this.trackingList.add(new TrackingModel(name, value));
         }
+    }
+
+    /**
+     * Get value from trackingList using key
+     * @param name
+     * @return
+     */
+    public String getValuePair(String name){
+        if(trackingList == null)
+            throw new NoSuchElementException("Sorry, TrackingList is null");
+
+        for(int i=0; i <trackingList.size(); i++){
+            if(trackingList.get(i).getKey().equals(name)){
+                return trackingList.get(i).getValue();
+            }
+        }
+        return null;
     }
 
 

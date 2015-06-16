@@ -16,7 +16,26 @@ public class MainActivity extends AppCompatActivity {
 
         UserTracker tracker = UserTracker.getInstance(this);
 
-        tracker.sendAction("aa", "bb");
+        tracker.sendFirstRun("1");
+        tracker.sendFirstRun("2");
+        tracker.sendFirstRun("3");
+        tracker.sendFirstRun("4");
+        tracker.sendFirstRun("5");
+        tracker.sendAction("1");
+        tracker.sendAction("2");
+        tracker.sendAction("3");
+        tracker.sendAction("4");
+        tracker.sendAction("5");
+        tracker.sendForeground("1");
+        tracker.sendForeground("2");
+        tracker.sendForeground("3");
+        tracker.sendForeground("4");
+        tracker.sendForeground("5");
+        tracker.sendBackground("1");
+        tracker.sendBackground("2");
+        tracker.sendBackground("3");
+        tracker.sendBackground("4");
+        tracker.sendBackground("5");
     }
 
     @Override

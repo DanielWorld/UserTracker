@@ -75,7 +75,15 @@ public class DeviceUtil {
     private static String getNetworkProvider(TelephonyManager tm) {
         LOG.v(TAG, "Network Operator Name: " + tm.getNetworkOperatorName());
         LOG.v(TAG, "Sim Operator Name: " + tm.getSimOperatorName());
-        return (tm.getSimState() == TelephonyManager.SIM_STATE_READY) ? tm.getSimOperatorName() : "UNKNOWN";
+        String provider = null;
+
+        if(tm.getSimState() == TelephonyManager.SIM_STATE_READY){
+            provider = tm.getSimOperatorName();
+        }
+        if(StringUtil.isNullorEmpty(provider)){
+            provider = tm.getNetworkOperatorName();
+        }
+        return StringUtil.isNullorEmpty(provider) ? "UNKNOWN" : provider;
     }
 
 }
