@@ -11,6 +11,8 @@ import com.namgyuworld.usertracker.util.AppUtil;
 import com.namgyuworld.usertracker.util.Logger;
 import com.namgyuworld.usertracker.util.StringUtil;
 
+import java.util.List;
+
 
 /**
  * Created by danielpark on 6/16/15.
@@ -57,7 +59,7 @@ public class Tracker {
         }
     }
 
-    protected void send(TrackingModel trackingModel){
+    protected void send(List<TrackingModel> trackingModel){
         LOG.v(TAG, "send tracking: " + trackingModel.toString());
         checkAppId();
 
