@@ -32,6 +32,9 @@ public class TrackingService extends IntentService{
     private static final String TAG = TrackingService.class.getSimpleName();
     private static Logger LOG = Logger.getInstance();
 
+    // When does transmitting data function proceed? in DELAY_TIME (default delay time is 5 seconds)
+    private static final int DELAY_TIME = 5000;
+
     private static long sTriggerTime;
 
     public TrackingService() {
@@ -48,7 +51,7 @@ public class TrackingService extends IntentService{
     }
 
     public static void startService(Context context){
-        startService(context, 5000); // Default delay value is 5000 seconds
+        startService(context, DELAY_TIME); // Default delay value is 5000 seconds
     }
 
     public static void startService(Context context, long delayTime){

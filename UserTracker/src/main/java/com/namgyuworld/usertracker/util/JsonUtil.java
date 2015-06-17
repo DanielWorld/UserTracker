@@ -17,7 +17,7 @@ public class JsonUtil {
     private Logger LOG = Logger.getInstance();
 
     /**
-     * Convert List to Json
+     * Convert only one List to Json
      * @param list
      * @return
      */
@@ -83,7 +83,7 @@ public class JsonUtil {
 
 
     /**
-     * Convert List&lt;List&gt; to Json
+     * Convert multiple List to Json
      * @param list
      * @return
      */
