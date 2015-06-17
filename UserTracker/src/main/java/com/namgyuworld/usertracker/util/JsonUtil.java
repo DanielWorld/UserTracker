@@ -19,7 +19,7 @@ public class JsonUtil {
      */
     public String toJson(List<TrackingModel> list){
         StringBuilder sb = new StringBuilder();
-        sb.append("[{");
+        sb.append("{");
 
         for(int i=0; i < list.size(); i++){
             sb.append("\"" + list.get(i).getKey() + "\"");
@@ -33,7 +33,7 @@ public class JsonUtil {
 
         sb.delete(sb.lastIndexOf(","), sb.length() );
 
-        sb.append("}]");
+        sb.append("}");
 
         return sb.toString();
     }

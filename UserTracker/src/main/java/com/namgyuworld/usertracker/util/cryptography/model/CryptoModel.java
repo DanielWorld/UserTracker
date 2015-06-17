@@ -27,4 +27,9 @@ public class CryptoModel {
     public void setIv(String iv) {
         this.iv = iv;
     }
+
+    @Override
+    public String toString() {
+        return cryptoText+"::"+iv;
+    }
 }

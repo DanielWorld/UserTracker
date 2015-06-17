@@ -7,8 +7,11 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.util.Base64;
 
 import java.io.ByteArrayInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
@@ -119,6 +122,35 @@ public class AppUtil {
     private static final Account[] getGoogleAccounts(Context context){
         AccountManager am = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
         return am.getAccountsByType("com.google");
+    }
+    /**
+     * Get key hash like e.g) MoOnjObCBRe$nfa42kdoeMdie4=
+     * @param context
+     * @return return "" if you failed to get key-hash
+     */
+    public static String getAppKeyHash(Context context){
+        PackageInfo packageInfo;
+        String keyHash = null;
+        try{
+            // Getting application package name
+            String packageName = context.getApplicationContext().getPackageName();
+
+            // Retriving package info
+            packageInfo = context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+
+            for(Signature signature: packageInfo.signatures){
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                keyHash = new String(Base64.encode(md.digest(), 0));
+
+                return keyHash;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

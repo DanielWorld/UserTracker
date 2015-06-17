@@ -53,6 +53,8 @@ public class SendTrackingInfo {
                 // Do some stuff
                 trackingModel.putValuePair(TrackingMapKey.GOOGLE_AD_ID, advertisementID);
                 LOG.i(TAG, trackingModel.toString());
+                // Send tracking data to Server
+                sendTracking(trackingModel);
             }
         });
     }
@@ -64,6 +66,7 @@ public class SendTrackingInfo {
             }
             else if (trackingModel.getValuePair(TrackingMapKey.TRACKING_TYPE).equals(TrackingModel.TrackingType.IMMEDIATELY.toAcronymCode())) {
                 // This is Immediately option
+                sendTracking(trackingModel);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,6 +81,6 @@ public class SendTrackingInfo {
 
     // Send Tracking immediately
     private void sendTracking(final TrackingModel trackingModel){
-        //..
+        new HttpConnection().sendTrackingToServer(mContext, trackingModel.getTrackingList());
     }
 }
