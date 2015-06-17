@@ -61,7 +61,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
      * Put all trackings into temporary database
      * @param allTrackingPackage
      */
-    synchronized public void putTrackingToDatabase(List<List<TrackingModel>> allTrackingPackage){
+    synchronized public void putAllTrackingsToDatabase(List<List<TrackingModel>> allTrackingPackage){
         SQLiteDatabase db = null;
         ContentValues cv;
 

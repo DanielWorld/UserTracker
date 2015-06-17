@@ -24,12 +24,12 @@ public class TrackerFactory {
     private static final String TAG = TrackerFactory.class.getSimpleName();
     private static Logger LOG = Logger.getInstance();
 
-    private static Context mContext;
-    private static DeviceInfo mDeviceInfo;
-    private static ApplicationInfo mApplicationInfo;
-    private static EnvironmentInfo mEnvironmentInfo;
+    private Context mContext;
+    private DeviceInfo mDeviceInfo;
+    private ApplicationInfo mApplicationInfo;
+    private EnvironmentInfo mEnvironmentInfo;
 
-    private static String mHashedGoogleAccount;
+    private String mHashedGoogleAccount;
 
     public TrackerFactory(Context context){
         this.mContext = context;
@@ -46,60 +46,55 @@ public class TrackerFactory {
         }
     }
 
-    public static TrackingModel newFirstRunTracking(String tag){
+    public TrackingModel newFirstRunTracking(){
         LOG.i(TAG, "New First Run tracking.");
 
         TrackingModel tracking = new TrackingModel();
         tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getMetaDataValue(mContext));
-        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.FIRST_RUN.toAcronymCode());
-        tracking.putValuePair(TrackingMapKey.TRACKING_TYPE, TrackingModel.TrackingType.IMMEDIATELY.toAcronymCode());
         tracking.putValuePair(TrackingMapKey.TRACKING_OCCUR_TIME, String.valueOf(new Date(System.currentTimeMillis())));
 
         addCommonInfo(tracking);
         return tracking;
     }
-    public static TrackingModel newForegroundTracking(String tag){
+    public TrackingModel newForegroundTracking(String tag){
         LOG.i(TAG, "New Foreground tracking.");
 
         TrackingModel tracking = new TrackingModel();
         tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getMetaDataValue(mContext));
         tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.FOREGROUND.toAcronymCode());
-        tracking.putValuePair(TrackingMapKey.TRACKING_TYPE, TrackingModel.TrackingType.TRACKING.toAcronymCode());
         tracking.putValuePair(TrackingMapKey.TRACKING_OCCUR_TIME, String.valueOf(new Date(System.currentTimeMillis())));
 
         addCommonInfo(tracking);
         return tracking;
     }
-    public static TrackingModel newBackgroundTracking(String tag){
+    public TrackingModel newBackgroundTracking(String tag){
         LOG.i(TAG, "New Background tracking.");
 
         TrackingModel tracking = new TrackingModel();
         tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getMetaDataValue(mContext));
         tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.BACKGROUND.toAcronymCode());
-        tracking.putValuePair(TrackingMapKey.TRACKING_TYPE, TrackingModel.TrackingType.TRACKING.toAcronymCode());
         tracking.putValuePair(TrackingMapKey.TRACKING_OCCUR_TIME, String.valueOf(new Date(System.currentTimeMillis())));
 
         addCommonInfo(tracking);
         return tracking;
     }
-    public static TrackingModel newActionTracking(String tag){
+    public TrackingModel newActionTracking(String tag){
         LOG.i(TAG, "New Action tracking.");
 
         TrackingModel tracking = new TrackingModel();
         tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getMetaDataValue(mContext));
         tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.ACTION.toAcronymCode());
-        tracking.putValuePair(TrackingMapKey.TRACKING_TYPE, TrackingModel.TrackingType.TRACKING.toAcronymCode());
         tracking.putValuePair(TrackingMapKey.TRACKING_OCCUR_TIME, String.valueOf(new Date(System.currentTimeMillis())));
 
         addCommonInfo(tracking);
         return tracking;
     }
 
-    private static void addCommonInfo(TrackingModel tracking){
+    private void addCommonInfo(TrackingModel tracking){
         tracking.putValuePair(TrackingMapKey.INSTALL_REFERRER, "");
         tracking.putValuePair(TrackingMapKey.GOOGLE_ACCOUNT, mHashedGoogleAccount);
         tracking.putValuePair(TrackingMapKey.OS_VERSION, mDeviceInfo.getOsVersion());

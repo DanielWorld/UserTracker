@@ -113,38 +113,6 @@ public class TrackingModel{
         return null;
     }
 
-
-    /**
-     * Tracking type <br>
-     *     IMMEDIATELY : Send info to server immediately without saving <br>
-     *     TRACKING : Send info to server after all tracking info are saved.
-     */
-    public enum TrackingType{
-        IMMEDIATELY, TRACKING;
-
-        public String toAcronymCode(){
-            switch (this){
-                case IMMEDIATELY:
-                    return "I";
-                case TRACKING:
-                    return "T";
-                default:
-                    return null;
-            }
-        }
-
-        public TrackingType valueOfAcronym(String str){
-            switch (str){
-                case "I":
-                    return TrackingType.IMMEDIATELY;
-                case "T":
-                    return TrackingType.TRACKING;
-                default:
-                    return null;
-            }
-        }
-    }
-
     /**
      * Tracking event type <br>
      *     FIRST_RUN : When application begins for the first time <br>

@@ -1,10 +1,14 @@
 package com.namgyuworld.usertracker.network;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.namgyuworld.usertracker.database.SQLiteHelper;
 import com.namgyuworld.usertracker.model.TrackingModel;
 import com.namgyuworld.usertracker.preference.SharePref;
+import com.namgyuworld.usertracker.service.TrackingService;
+import com.namgyuworld.usertracker.util.JsonUtil;
 import com.namgyuworld.usertracker.util.Logger;
 import com.namgyuworld.usertracker.util.StringUtil;
 import com.namgyuworld.usertracker.util.cryptography.CryptoUtil;
@@ -53,25 +57,54 @@ public class SendTrackingInfo {
                 // Do some stuff
                 trackingModel.putValuePair(TrackingMapKey.GOOGLE_AD_ID, advertisementID);
                 LOG.i(TAG, trackingModel.toString());
-                // Send tracking data to Server
-                sendTracking(trackingModel);
+
+                /**
+                 * REFERRER MEASUREMENT
+                 */
+                // Check if temporary tracking data exists
+                SQLiteHelper dbHelper = new SQLiteHelper(mContext);
+                SQLiteDatabase db = null;
+                Cursor c = null;
+                try{
+                    db = dbHelper.getReadableDatabase();
+                    c = db.query(SQLiteHelper.TABLE_TEMPORARY, new String[]{SQLiteHelper.COLUMN_ID, SQLiteHelper.COLUMN_DATA}, null, null, null, null, null);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                // Check install_referrer
+                if(!StringUtil.isNullorEmpty(mPref.getInstallReferrer())){
+                    // Referrer exists
+                    LOG.i(TAG, "Install Referrer exists");
+
+                    if(c.getCount() == 0){
+                        LOG.v(TAG, "No temporory tracking data!");
+                        c.close();
+                        db.close();
+                        // Send tracking data to Server
+                        sendTracking(trackingModel);
+                    }else{
+                        // Save current tracking data
+                        saveTemporary(trackingModel);
+                        c.close();
+                        db.close();
+                        // Start service
+                        TrackingService.startService(mContext, 5000);
+                    }
+                }
+                else{
+                    // Referrer doesn't exist
+                    // Save current tracking data
+                    saveTemporary(trackingModel);
+                    c.close();
+                    db.close();
+                    // Start service
+                    TrackingService.startService(mContext, 5000);
+                }
+
+
             }
         });
-    }
-
-    private void handleTracking(final TrackingModel trackingModel) {
-        try {
-            if (trackingModel.getValuePair(TrackingMapKey.TRACKING_TYPE).equals(TrackingModel.TrackingType.TRACKING.toAcronymCode())) {
-                // This is tracking option
-            }
-            else if (trackingModel.getValuePair(TrackingMapKey.TRACKING_TYPE).equals(TrackingModel.TrackingType.IMMEDIATELY.toAcronymCode())) {
-                // This is Immediately option
-                sendTracking(trackingModel);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
     }
 
     // Save in temporary database
