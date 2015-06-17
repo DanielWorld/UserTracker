@@ -15,8 +15,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tracker = UserTracker.getInstance(this);
+        tracker = new UserTracker(this);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tracker.sendForeground("Foreground");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        tracker.sendBackground("Background");
     }
 
     @Override
@@ -35,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            tracker.sendFirstRun();
+            tracker.sendAction("Menu Clicked");
             return true;
         }
 

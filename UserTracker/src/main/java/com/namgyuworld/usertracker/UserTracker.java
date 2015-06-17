@@ -27,11 +27,11 @@ public class UserTracker {
      * Called when application runs for the first time <br>
      *     Once you called and deliver message to Server, it won't invoke even thou you call this again
      */
-    public final void sendFirstRun(){
-        if(Build.VERSION.SDK_INT >= 10){
-            mTracker.send(mTrackerFactory.newFirstRunTracking());
-        }
-    }
+//    public final void sendFirstRun(){
+//        if(Build.VERSION.SDK_INT >= 10){
+//            mTracker.send(mTrackerFactory.newFirstRunTracking());
+//        }
+//    }
 
     /**
      * Called when app is foreground

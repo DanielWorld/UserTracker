@@ -62,9 +62,9 @@ public class TrackerFactory {
 
         TrackingModel tracking = new TrackingModel();
         tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getMetaDataValue(mContext));
-        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.FOREGROUND.toAcronymCode());
         tracking.putValuePair(TrackingMapKey.TRACKING_OCCUR_TIME, String.valueOf(new Date(System.currentTimeMillis())));
+        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
 
         addCommonInfo(tracking);
         return tracking;
@@ -74,9 +74,9 @@ public class TrackerFactory {
 
         TrackingModel tracking = new TrackingModel();
         tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getMetaDataValue(mContext));
-        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.BACKGROUND.toAcronymCode());
         tracking.putValuePair(TrackingMapKey.TRACKING_OCCUR_TIME, String.valueOf(new Date(System.currentTimeMillis())));
+        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
 
         addCommonInfo(tracking);
         return tracking;
@@ -86,9 +86,9 @@ public class TrackerFactory {
 
         TrackingModel tracking = new TrackingModel();
         tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getMetaDataValue(mContext));
-        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.ACTION.toAcronymCode());
         tracking.putValuePair(TrackingMapKey.TRACKING_OCCUR_TIME, String.valueOf(new Date(System.currentTimeMillis())));
+        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
 
         addCommonInfo(tracking);
         return tracking;

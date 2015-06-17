@@ -28,6 +28,7 @@ public class HttpConnection {
 
     /**
      * Send Tracking to server immediately
+     *
      * @param context
      * @param trackingInfo
      */
@@ -41,7 +42,7 @@ public class HttpConnection {
                 LOG.i(TAG, "toJson:\n" + trackingData);
 //                LOG.i(TAG, "fromJson:\n" + new JsonUtil().fromJson(trackingData).toString());
 
-                try{
+                try {
                     URL url = new URL(URLs.getURL());   // URL
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();  // Open connection
 
@@ -72,7 +73,7 @@ public class HttpConnection {
                     int responseCode = conn.getResponseCode();
                     LOG.i(TAG, "response code : " + responseCode);
 
-                    if(HttpURLConnection.HTTP_OK == responseCode) {
+                    if (HttpURLConnection.HTTP_OK == responseCode) {
 
                         BufferedReader in = new BufferedReader(
                                 new InputStreamReader(conn.getInputStream()));
@@ -83,8 +84,7 @@ public class HttpConnection {
                             response.append(inputLine);
                         }
                         in.close();
-                    }
-                    else{
+                    } else {
                         LOG.e(TAG, HttpStatusCode.getMessage(responseCode));
                         // response code isn't 200
                         // then time to save database
@@ -93,9 +93,9 @@ public class HttpConnection {
                     }
 
                 } catch (MalformedURLException e) {
-                    e.printStackTrace();
+                    LOG.e(TAG, "Malformed URL exception \n" + e.getMessage());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOG.e(TAG, "IOException \n" + e.getMessage());
                 }
                 return null;
             }
@@ -104,79 +104,78 @@ public class HttpConnection {
 
     /**
      * Try to transmit all trackings data in database
+     *
      * @param context
      * @param allTrackingInfo
      */
     public void sendTrackingInDBToServer(final Context context, final List<List<TrackingModel>> allTrackingInfo) {
 
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                String trackingData = new JsonUtil().toJsonList(allTrackingInfo);
+                LOG.i(TAG, "toJson:\n" + trackingData);
 
+                try {
+                    URL url = new URL(URLs.getURL());   // URL
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();  // Open connection
 
-            new AsyncTask<Void, Void, Boolean>() {
-                @Override
-                protected Boolean doInBackground(Void... params) {
-                    String trackingData = new JsonUtil().toJsonList(allTrackingInfo);
-                    LOG.i(TAG, "toJson:\n" + trackingData);
+                    // Specify POST method
+                    conn.setRequestMethod("POST");
+                    // set connection timeout
+                    conn.setConnectTimeout(5000);
 
-                    try {
-                        URL url = new URL(URLs.getURL());   // URL
-                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();  // Open connection
+                    // Set the headers
+                    conn.setRequestProperty("Content-Type", "application/json");
+                    conn.setRequestProperty("Authorization", AppUtil.getAppKeyHash(context));
 
-                        // Specify POST method
-                        conn.setRequestMethod("POST");
-                        // set connection timeout
-                        conn.setConnectTimeout(5000);
+                    conn.setDoOutput(true);
 
-                        // Set the headers
-                        conn.setRequestProperty("Content-Type", "application/json");
-                        conn.setRequestProperty("Authorization", AppUtil.getAppKeyHash(context));
+                    // Get connection output stream
+                    DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 
-                        conn.setDoOutput(true);
+                    // Copy push contents "JSON" info
+                    wr.writeBytes(trackingData);
 
-                        // Get connection output stream
-                        DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+                    // Send the request
+                    wr.flush();
 
-                        // Copy push contents "JSON" info
-                        wr.writeBytes(trackingData);
+                    // close
+                    wr.close();
 
-                        // Send the request
-                        wr.flush();
+                    // Get the response
+                    int responseCode = conn.getResponseCode();
+                    LOG.i(TAG, "response code : " + responseCode);
 
-                        // close
-                        wr.close();
+                    if (HttpURLConnection.HTTP_OK == responseCode) {
 
-                        // Get the response
-                        int responseCode = conn.getResponseCode();
-                        LOG.i(TAG, "response code : " + responseCode);
+                        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(conn.getInputStream()));
+                        String inputLine;
+                        StringBuffer response = new StringBuffer();
 
-                        if (HttpURLConnection.HTTP_OK == responseCode) {
-
-                            BufferedReader in = new BufferedReader(
-                                    new InputStreamReader(conn.getInputStream()));
-                            String inputLine;
-                            StringBuffer response = new StringBuffer();
-
-                            while ((inputLine = in.readLine()) != null) {
-                                response.append(inputLine);
-                            }
-                            in.close();
-
-                            // response code is 200
-                            // then time to delete database
-                            SQLiteHelper dbHelper = new SQLiteHelper(context);
-                            dbHelper.clearTemporaryDB();
-
-                        } else {
-                            LOG.e(TAG, HttpStatusCode.getMessage(responseCode));
+                        while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
                         }
+                        in.close();
 
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        // response code is 200
+                        // then time to delete database
+                        SQLiteHelper dbHelper = new SQLiteHelper(context);
+                        dbHelper.clearTemporaryDB();
+
+                    } else {
+                        LOG.e(TAG, HttpStatusCode.getMessage(responseCode));
                     }
-                    return null;
+
+                } catch (MalformedURLException e) {
+                    LOG.e(TAG, "Malformed URL exception \n" + e.getMessage());
+                } catch (IOException e) {
+                    LOG.e(TAG, "IOException \n" + e.getMessage());
                 }
-            }.execute();
-        }
+                return null;
+            }
+        }.execute();
+    }
 
 }

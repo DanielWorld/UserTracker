@@ -15,8 +15,8 @@ public class URLs {
         isDebug = flag;
     }
 
-    private static final String URL_HOST = "http://192.168.0.46:8080/spring/userTracker/trackingInfo";
-    private static final String URL_DEV = "http://192.168.0.46:8080/spring/userTracker/trackingInfo";
+    private static final String URL_HOST = "http://61.98.48.245:8080/spring/userTracker/trackingInfo";
+    private static final String URL_DEV = "http://61.98.48.245:8080/spring/userTracker/trackingInfo";
 
     /**
      * Get url to send tracking data to Server

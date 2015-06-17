@@ -104,11 +104,14 @@ public class TrackingService extends IntentService{
         synchronized (SQLiteHelper.class){
             SQLiteHelper dbHelper = new SQLiteHelper(context);
 
-            if(!StringUtil.isNullorEmpty(mPrefs.getInstallReferrer())){
+            if(!mPrefs.isFirstRunInDB() && !StringUtil.isNullorEmpty(mPrefs.getInstallReferrer())){
                 // Check runFirst in DB and other things..
                 TrackingModel tracking = new TrackerFactory(context).newFirstRunTracking();
                 tracking.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer()); // put changed referrer
+                tracking.putValuePair(TrackingMapKey.GOOGLE_AD_ID, mPrefs.getGoogleAdId()); // put google ad id
                 dbHelper.putTemporary(tracking.getTrackingList());
+                // record that first run is in database
+                mPrefs.setFirstRunInDB(true);
             }
 
             // Check if there is other left data And update Install_referrer in all db?
@@ -140,8 +143,6 @@ public class TrackingService extends IntentService{
                         trackingModel = new JsonUtil().fromJson(c.getString(columnData));
                         trackingModel.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer());
 
-                        // Send tracking data to Server
-//                        new HttpConnection().sendTrackingInDBToServer(context, trackingModel.getTrackingList());
                         trackingMultipleList.add(trackingModel.getTrackingList());
                         LOG.i(TAG, trackingModel.toString());
                     }

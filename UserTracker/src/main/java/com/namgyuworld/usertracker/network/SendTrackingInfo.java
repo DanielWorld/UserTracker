@@ -89,7 +89,7 @@ public class SendTrackingInfo {
                         c.close();
                         db.close();
                         // Start service
-                        TrackingService.startService(mContext, 5000);
+                        TrackingService.startService(mContext);
                     }
                 }
                 else{
@@ -99,7 +99,7 @@ public class SendTrackingInfo {
                     c.close();
                     db.close();
                     // Start service
-                    TrackingService.startService(mContext, 5000);
+                    TrackingService.startService(mContext);
                 }
 
 
