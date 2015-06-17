@@ -1,17 +1,14 @@
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in /Users/danielpark/Library/Android/sdk/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# This is Proguard setting for UserTracker SDK jar #
 
-# Add any project specific keep options here:
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+-keepclasseswithmembers class com.namgyuworld.usertracker.UserTracker {
+    synchronized public static final com.namgyuworld.usertracker.UserTracker getInstance(android.content.Context);
+    public final void sendForeground(java.lang.String);
+    public final void sendBackground(java.lang.String);
+    public final void sendAction(java.lang.String);
+}
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+-keep class com.namgyuworld.usertracker.receiver.InstallReferrerReceiver
+-keep class com.namgyuworld.usertracker.service.TrackingService
