@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Copyright (C) 2014-2015 Daniel Park, op7773hons@gmail.com
+ * <p/>
+ * This file is part of UserTracker (https://github.com/NamgyuWorld)
  * Created by danielpark on 6/16/15.
  */
 public class TrackingService extends IntentService{

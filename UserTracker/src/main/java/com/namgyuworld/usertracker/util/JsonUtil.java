@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * Copyright (C) 2014-2015 Daniel Park, op7773hons@gmail.com
+ * <p/>
+ * This file is part of UserTracker (https://github.com/NamgyuWorld)
  * Convert List Object to Json or vice versa
  * <br><br.
  * Created by danielpark on 6/16/15.

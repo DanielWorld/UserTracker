@@ -6,6 +6,9 @@ package com.namgyuworld.usertracker.network;
  * 400 : Bad request <br>
  * ... etc
  * <br><br>
+ * Copyright (C) 2014-2015 Daniel Park, op7773hons@gmail.com
+ * <p/>
+ * This file is part of UserTracker (https://github.com/NamgyuWorld)
  * Created by danielpark on 6/17/15.
  */
 public class HttpStatusCode {
