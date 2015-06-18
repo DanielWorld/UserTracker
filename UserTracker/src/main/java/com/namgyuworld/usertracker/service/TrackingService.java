@@ -12,7 +12,7 @@ import android.os.SystemClock;
 import com.namgyuworld.usertracker.TrackerFactory;
 import com.namgyuworld.usertracker.database.SQLiteHelper;
 import com.namgyuworld.usertracker.model.TrackingModel;
-import com.namgyuworld.usertracker.network.HttpConnection;
+import com.namgyuworld.usertracker.network.TrackerHttpConnection;
 import com.namgyuworld.usertracker.network.URLs;
 import com.namgyuworld.usertracker.preference.SharePref;
 import com.namgyuworld.usertracker.util.AppUtil;
@@ -107,14 +107,14 @@ public class TrackingService extends IntentService{
         synchronized (SQLiteHelper.class){
             SQLiteHelper dbHelper = new SQLiteHelper(context);
 
-            if(!mPrefs.isFirstRunInDB() && !StringUtil.isNullorEmpty(mPrefs.getInstallReferrer())){
+            if(!mPrefs.hasFirstRunStart() && !StringUtil.isNullorEmpty(mPrefs.getInstallReferrer())){
+                // record that first run is in database
+                mPrefs.setFirstRunStart(true);
                 // Check runFirst in DB and other things..
                 TrackingModel tracking = new TrackerFactory(context).newFirstRunTracking();
                 tracking.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer()); // put changed referrer
                 tracking.putValuePair(TrackingMapKey.GOOGLE_AD_ID, mPrefs.getGoogleAdId()); // put google ad id
                 dbHelper.putTemporary(tracking.getTrackingList());
-                // record that first run is in database
-                mPrefs.setFirstRunInDB(true);
             }
 
             // Check if there is other left data And update Install_referrer in all db?
@@ -154,7 +154,7 @@ public class TrackingService extends IntentService{
                 c.close();
 
                 // Send all trackings in DB to Server
-                new HttpConnection().sendTrackingInDBToServer(context, trackingMultipleList);
+                new TrackerHttpConnection().sendTrackingInDBToServer(context, trackingMultipleList);
 
 
             }catch (Exception e){

@@ -15,7 +15,7 @@ public class SharePref {
 
     private static final String KEY_INSTALL_REFERRER = "install_referrer_key";
     private static final String KEY_GOOGLE_AD_ID = "google_ad_id_key";
-    private static final String KEY_FIRST_RUN_IN_DB = "first_run_in_db";
+    private static final String KEY_FIRST_RUN_START = "first_run_start";
 
     private SharedPreferences mPrefs;
 
@@ -38,11 +38,11 @@ public class SharePref {
         return mPrefs.getString(KEY_INSTALL_REFERRER, "");
     }
 
-    public void setFirstRunInDB(boolean flag){
-        mPrefs.edit().putBoolean(KEY_FIRST_RUN_IN_DB, flag).commit();
+    public void setFirstRunStart(boolean flag){
+        mPrefs.edit().putBoolean(KEY_FIRST_RUN_START, flag).commit();
     }
-    public boolean isFirstRunInDB(){
-        return mPrefs.getBoolean(KEY_FIRST_RUN_IN_DB, false);
+    public boolean hasFirstRunStart(){
+        return mPrefs.getBoolean(KEY_FIRST_RUN_START, false);
     }
 
 }

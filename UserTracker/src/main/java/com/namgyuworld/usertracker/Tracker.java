@@ -6,10 +6,12 @@ import android.content.res.Resources;
 import com.namgyuworld.usertracker.model.TrackingModel;
 import com.namgyuworld.usertracker.network.SendTrackingInfo;
 import com.namgyuworld.usertracker.network.URLs;
+import com.namgyuworld.usertracker.preference.SharePref;
 import com.namgyuworld.usertracker.service.TrackingService;
 import com.namgyuworld.usertracker.util.AppUtil;
 import com.namgyuworld.usertracker.util.Logger;
 import com.namgyuworld.usertracker.util.StringUtil;
+import com.namgyuworld.usertracker.variables.TrackingMapKey;
 
 import java.util.List;
 
@@ -27,9 +29,11 @@ public class Tracker {
 
     private Context mContext;
     private SendTrackingInfo mSendTrackingInfo;
+    private SharePref mPref;
 
     public Tracker(Context context){
         this.mContext = context;
+        this.mPref = new SharePref(context);
 
         init(context);
     }
@@ -66,6 +70,13 @@ public class Tracker {
         LOG.v(TAG, "send tracking: " + trackingModel.toString());
         checkAppId();
 
-        mSendTrackingInfo.transmit(trackingModel);
+        if(trackingModel.getValuePair(TrackingMapKey.TRACKING_EVENT).equals(TrackingModel.TrackingEvent.FIRST_RUN)){
+            if(!mPref.hasFirstRunStart()) {
+                mPref.setFirstRunStart(true);
+                mSendTrackingInfo.transmit(trackingModel);
+            }
+        }else {
+            mSendTrackingInfo.transmit(trackingModel);
+        }
     }
 }

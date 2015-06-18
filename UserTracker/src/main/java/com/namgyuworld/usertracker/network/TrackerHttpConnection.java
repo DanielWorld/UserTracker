@@ -24,9 +24,9 @@ import java.util.List;
  * This file is part of UserTracker (https://github.com/NamgyuWorld)
  * Created by danielpark on 6/17/15.
  */
-public class HttpConnection {
+public class TrackerHttpConnection {
 
-    private final String TAG = HttpConnection.class.getSimpleName();
+    private final String TAG = TrackerHttpConnection.class.getSimpleName();
     private Logger LOG = Logger.getInstance();
 
     /**

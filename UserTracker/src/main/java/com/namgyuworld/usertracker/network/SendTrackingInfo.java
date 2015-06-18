@@ -8,15 +8,11 @@ import com.namgyuworld.usertracker.database.SQLiteHelper;
 import com.namgyuworld.usertracker.model.TrackingModel;
 import com.namgyuworld.usertracker.preference.SharePref;
 import com.namgyuworld.usertracker.service.TrackingService;
-import com.namgyuworld.usertracker.util.JsonUtil;
 import com.namgyuworld.usertracker.util.Logger;
 import com.namgyuworld.usertracker.util.StringUtil;
-import com.namgyuworld.usertracker.util.cryptography.CryptoUtil;
 import com.namgyuworld.usertracker.util.google.adId.GoogleAdvertisingIdClient;
 import com.namgyuworld.usertracker.util.google.adId.OnAdvertisingIDcompleteListener;
 import com.namgyuworld.usertracker.variables.TrackingMapKey;
-
-import java.util.List;
 
 /**
  * Copyright (C) 2014-2015 Daniel Park, op7773hons@gmail.com
@@ -117,6 +113,12 @@ public class SendTrackingInfo {
 
     // Send Tracking immediately
     private void sendTracking(final TrackingModel trackingModel){
-        new HttpConnection().sendTrackingToServer(mContext, trackingModel.getTrackingList());
+
+        // If Install referrer exists
+        if(!StringUtil.isNullorEmpty(mPref.getInstallReferrer())){
+            trackingModel.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPref.getInstallReferrer());
+        }
+
+        new TrackerHttpConnection().sendTrackingToServer(mContext, trackingModel.getTrackingList());
     }
 }
