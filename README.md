@@ -56,6 +56,72 @@ Set Receiver to get InstallReferrer
 </pre>
 
 ## How to use UserTracker
+You can get UserTracker like this
+<pre>
+synchronized public static final UserTracker getInstance(Context context)
+</pre>
+
+UserTracker gives you 4 methods
+- public final void sendFirstRun()
+- public final void sendForeground(String tag)
+- public final void sendBackground(String tag)
+- public final void sendAction(String tag)
+
+### public final void sendFirstRun()
+This is called when application execute for the first time <br>
+It won't be transmitted unless install referrer is arrived
+
+If it is called in Activity
+<pre>
+UserTracker.getInstance(getApplicationContext()).sendFirstRun();
+</pre>
+
+If it is called in Fragment
+<pre>
+UserTracker.getInstance(getActivity().getApplicationContext()).sendFirstRun();
+</pre>
+
+### public final void sendForeground(String tag)
+This is called when application is on the foreground mode <br>
+If String tag is null then it will print null
+
+If it is called in Activity
+<pre>
+UserTracker.getInstance(getApplicationContext()).sendForeground(String tag);
+</pre>
+
+If it is called in Fragment
+<pre>
+UserTracker.getInstance(getActivity().getApplicationContext()).sendForeground(String tag);
+</pre>
+
+### public final void sendBackground(String tag)
+This is called when application is in the background mode <br>
+If String tag is null then it will print null
+
+If it is called in Activity
+<pre>
+UserTracker.getInstance(getApplicationContext()).sendBackground(String tag);
+</pre>
+
+If it is called in Fragment
+<pre>
+UserTracker.getInstance(getActivity().getApplicationContext()).sendBackground(String tag);
+</pre>
+
+### public final void sendAction(String tag)
+This is called when application does certain action
+If String tag is null then it will print null
+
+If it is called in Activity
+<pre>
+UserTracker.getInstance(getApplicationContext()).sendAction(String tag);
+</pre>
+
+If it is called in Fragment
+<pre>
+UserTracker.getInstance(getActivity().getApplicationContext()).sendAction(String tag);
+</pre>
 
 ## How to test InstallReferrer in local
 Using terminal, you can deliver install referrer to your device <br>
