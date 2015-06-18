@@ -9,26 +9,27 @@ import com.namgyuworld.usertracker.UserTracker;
 
 public class MainActivity extends AppCompatActivity {
 
-    UserTracker tracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tracker = new UserTracker(getApplicationContext());
+        UserTracker.getInstance(this).sendFirstRun();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        tracker.sendForeground("tag");
+        UserTracker.getInstance(this).sendForeground("tag");
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        tracker.sendBackground("tag");
+        UserTracker.getInstance(this).sendBackground("tag");
     }
 
     @Override
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            tracker.sendAction("tag");
+            UserTracker.getInstance(this).sendAction("tag");
             return true;
         }
 

@@ -70,7 +70,7 @@ public class Tracker {
         LOG.v(TAG, "send tracking: " + trackingModel.toString());
         checkAppId();
 
-        if(trackingModel.getValuePair(TrackingMapKey.TRACKING_EVENT).equals(TrackingModel.TrackingEvent.FIRST_RUN)){
+        if(trackingModel.getValuePair(TrackingMapKey.TRACKING_EVENT).equals(TrackingModel.TrackingEvent.FIRST_RUN.toAcronymCode())){
             if(!mPref.hasFirstRunStart()) {
                 mPref.setFirstRunStart(true);
                 mSendTrackingInfo.transmit(trackingModel);

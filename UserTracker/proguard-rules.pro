@@ -5,6 +5,7 @@
 }
 -keepclasseswithmembers class com.namgyuworld.usertracker.UserTracker {
     synchronized public static final com.namgyuworld.usertracker.UserTracker getInstance(android.content.Context);
+    public final void sendFirstRun();
     public final void sendForeground(java.lang.String);
     public final void sendBackground(java.lang.String);
     public final void sendAction(java.lang.String);

@@ -146,7 +146,15 @@ public class TrackingService extends IntentService{
                         trackingModel = new JsonUtil().fromJson(c.getString(columnData));
                         trackingModel.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer());
 
-                        trackingMultipleList.add(trackingModel.getTrackingList());
+                        // If tracking is First Run and do not have Install referrer then, skip it.
+                        // FIRST RUN type
+                        if(trackingModel.getValuePair(TrackingMapKey.TRACKING_EVENT).equals(TrackingModel.TrackingEvent.FIRST_RUN.toAcronymCode())) {
+                            // Install referrer exists
+                            if(!StringUtil.isNullorEmpty(mPrefs.getInstallReferrer()))
+                                trackingMultipleList.add(trackingModel.getTrackingList());
+                        }else {
+                            trackingMultipleList.add(trackingModel.getTrackingList());
+                        }
                         LOG.i(TAG, trackingModel.toString());
                     }
                 }

@@ -54,7 +54,7 @@ public class InstallReferrerReceiver extends BroadcastReceiver{
 //            LOG.i(TAG, "install referrer got received. save " + referrer);
             prefs.setInstallReferrer(referrer);
             // Start Service
-            TrackingService.startService(context, 5000);
+            TrackingService.startService(context);
         }
 
     }
