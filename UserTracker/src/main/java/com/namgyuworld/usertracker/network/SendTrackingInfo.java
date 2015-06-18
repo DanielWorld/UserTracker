@@ -42,7 +42,6 @@ public class SendTrackingInfo {
      * @param trackingModel
      */
     public void transmit(final TrackingModel trackingModel) {
-        LOG.enableLog();
 
         // Get google advertising id
         GoogleAdvertisingIdClient.getGoogleAdID(mContext, new OnAdvertisingIDcompleteListener() {
