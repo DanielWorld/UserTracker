@@ -1,8 +1,7 @@
 package com.namgyuworld.usertracker.util.cryptography;
 
-import android.util.Base64;
-
 import com.namgyuworld.usertracker.util.cryptography.model.CryptoModel;
+import com.namgyuworld.usertracker.util.cryptography.type.Base64;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -17,9 +16,11 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 import java.security.spec.RSAPrivateCrtKeySpec;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
+import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -28,6 +29,8 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Encryption & decryption in AES
@@ -66,6 +69,27 @@ public class CryptoUtil {
             // No need to provide a SecureRandom or set a seed since that will happen automatically
             keyGen.init(AES_KEY_LENGTH_BITS);
             SecretKey integrityKey = keyGen.generateKey();
+            return integrityKey;
+        }
+
+        /**
+         * A function that generates AES key using String seedKey
+         * @param seedKey
+         * @return
+         */
+        public static SecretKey generateKey(String seedKey){
+            byte[] byteKey = seedKey.getBytes();
+
+            MessageDigest sha = null;
+            try {
+                sha = MessageDigest.getInstance("SHA-1");
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            byteKey = sha.digest(byteKey);
+            byteKey = Arrays.copyOf(byteKey, 16); // use only first 128 bit
+
+            SecretKey integrityKey = new SecretKeySpec(byteKey, CIPHER);
             return integrityKey;
         }
 
