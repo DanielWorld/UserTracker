@@ -4,10 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.namgyuworld.usertracker.model.TrackingModel;
 import com.namgyuworld.usertracker.util.JsonUtil;
+import com.namgyuworld.usertracker.util.Logger;
+import com.namgyuworld.usertracker.variables.TrackingMapKey;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +21,9 @@ import java.util.List;
  * Created by danielpark on 6/16/15.
  */
 public class SQLiteHelper extends SQLiteOpenHelper {
+
+    private final String TAG = SQLiteHelper.class.getSimpleName();
+    private Logger LOG = Logger.getInstance();
 
     private static final String DATABASE_NAME = "tracker.db";
     private static final int DATABASE_VERSION = 1;
@@ -97,5 +104,32 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         }finally {
             db.close();
         }
+    }
+
+    /**
+     * Clear certain trackings (rows)
+     * @param allTrackingInfo
+     */
+    synchronized public void clearTracking(List<List<TrackingModel>> allTrackingInfo){
+
+        SQLiteDatabase db = null;
+        try{
+            db = getWritableDatabase();
+
+            TrackingModel aaa = new TrackingModel();
+
+            for(int i=0; i <allTrackingInfo.size(); i++) {
+                aaa.setTrackingList(allTrackingInfo.get(i));
+                db.delete(SQLiteHelper.TABLE_TEMPORARY, SQLiteHelper.COLUMN_ID + "= ?", new String[]{aaa.getValuePair(TrackingMapKey.TRACKING_ROW_ID)});
+            }
+
+            LOG.d(TAG, "tracking data has deleted");
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(db != null)
+                db.close();
+        }
+
     }
 }

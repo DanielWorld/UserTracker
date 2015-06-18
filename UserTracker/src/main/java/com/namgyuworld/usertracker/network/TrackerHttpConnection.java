@@ -171,7 +171,10 @@ public class TrackerHttpConnection {
                         // response code is 200
                         // then time to delete database
                         SQLiteHelper dbHelper = new SQLiteHelper(context);
-                        dbHelper.clearTemporaryDB();
+//                        dbHelper.clearTemporaryDB();
+
+                        // then delete sent trackings
+                        dbHelper.clearTracking(allTrackingInfo);
 
                     } else {
                         LOG.e(TAG, HttpStatusCode.getMessage(responseCode));

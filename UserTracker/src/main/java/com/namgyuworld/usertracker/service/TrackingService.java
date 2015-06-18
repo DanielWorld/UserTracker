@@ -146,6 +146,9 @@ public class TrackingService extends IntentService{
                         trackingModel = new JsonUtil().fromJson(c.getString(columnData));
                         trackingModel.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer());
 
+                        // Add row id to distinguish later
+                        trackingModel.putValuePair(TrackingMapKey.TRACKING_ROW_ID, String.valueOf(c.getInt(columnId)));
+
                         // If tracking is First Run and do not have Install referrer then, skip it.
                         // FIRST RUN type
                         if(trackingModel.getValuePair(TrackingMapKey.TRACKING_EVENT).equals(TrackingModel.TrackingEvent.FIRST_RUN.toAcronymCode())) {

@@ -31,4 +31,6 @@ public class TrackingMapKey {
     public static final String NETWORK_PROVIDER = "network_provider";
     public static final String CURRENT_TIME = "current_time";
 
+    public static final String TRACKING_ROW_ID = "row_id";
+
 }

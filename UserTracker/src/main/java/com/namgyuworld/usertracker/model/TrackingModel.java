@@ -54,6 +54,14 @@ public class TrackingModel{
         return this.trackingList;
     }
 
+    /**
+     * Set tracking list
+     * @param list
+     */
+    public void setTrackingList(List<TrackingModel> list){
+        this.trackingList = list;
+    }
+
     public TrackingModel() {
         if (trackingList == null)
             trackingList = new ArrayList<>();
