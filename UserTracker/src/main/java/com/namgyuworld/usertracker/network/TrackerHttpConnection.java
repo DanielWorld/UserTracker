@@ -97,8 +97,14 @@ public class TrackerHttpConnection {
 
                 } catch (MalformedURLException e) {
                     LOG.e(TAG, "Malformed URL exception \n" + e.getMessage());
+                    // then time to save database
+                    SQLiteHelper dbHelper = new SQLiteHelper(context);
+                    dbHelper.putTemporary(trackingInfo);
                 } catch (IOException e) {
                     LOG.e(TAG, "IOException \n" + e.getMessage());
+                    // then time to save database
+                    SQLiteHelper dbHelper = new SQLiteHelper(context);
+                    dbHelper.putTemporary(trackingInfo);
                 }
                 return null;
             }
