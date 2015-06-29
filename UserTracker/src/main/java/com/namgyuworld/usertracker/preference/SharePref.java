@@ -16,6 +16,7 @@ public class SharePref {
     private static final String KEY_INSTALL_REFERRER = "install_referrer_key";
     private static final String KEY_GOOGLE_AD_ID = "google_ad_id_key";
     private static final String KEY_FIRST_RUN_START = "first_run_start";
+    private static final String KEY_RECEIVER_ACTIVATED = "receiver_activivated";
 
     private SharedPreferences mPrefs;
 
@@ -43,6 +44,20 @@ public class SharePref {
     }
     public boolean hasFirstRunStart(){
         return mPrefs.getBoolean(KEY_FIRST_RUN_START, false);
+    }
+
+    public void setReceiverActivated(int mode){
+        mPrefs.edit().putInt(KEY_RECEIVER_ACTIVATED, mode).commit();
+    }
+
+    /**
+     * 0 : nothing happened
+     * 1 : got install_referrer from receiver
+     * 2 : created Run first mode
+     * @return
+     */
+    public int getReceiverActivated(){
+        return mPrefs.getInt(KEY_RECEIVER_ACTIVATED, 0);
     }
 
 }

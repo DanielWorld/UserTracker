@@ -30,7 +30,7 @@ import java.util.List;
  * This file is part of UserTracker (https://github.com/NamgyuWorld)
  * Created by danielpark on 6/16/15.
  */
-public class TrackingService extends IntentService{
+public class TrackingService extends IntentService {
 
     private static final String TAG = TrackingService.class.getSimpleName();
     private static Logger LOG = Logger.getInstance();
@@ -53,26 +53,25 @@ public class TrackingService extends IntentService{
         super(TAG);
     }
 
-    public static void startService(Context context){
+    public static void startService(Context context) {
         startService(context, DELAY_TIME); // Default delay value is 5000 seconds
     }
 
-    public static void startService(Context context, long delayTime){
+    public static void startService(Context context, long delayTime) {
 
         // Suppose it invokes from Receiver
-        if(AppUtil.isDebuggable(context)){
+        if (AppUtil.isDebuggable(context)) {
             URLs.setDebug(true);
             LOG.enableLog();
-        }
-        else{
+        } else {
             URLs.setDebug(false);
             LOG.disableLog();
         }
 
         // If there is no reserved task
-        if(!existsAlarm()){
-            synchronized (TrackingService.class){
-                if(!existsAlarm()){
+        if (!existsAlarm()) {
+            synchronized (TrackingService.class) {
+                if (!existsAlarm()) {
                     LOG.i(TAG, "Create new Transmit Schedule");
                     AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -87,7 +86,7 @@ public class TrackingService extends IntentService{
                     LOG.i(TAG, "Service has reserved and it will proceed in " + delayTime / 1000 + "seconds");
                 }
             }
-        }else{
+        } else {
             LOG.i(TAG, "Sorry, There is reserved task");
         }
     }
@@ -96,6 +95,7 @@ public class TrackingService extends IntentService{
     private static boolean existsAlarm() {
         return sTriggerTime != 0 && sTriggerTime > SystemClock.elapsedRealtime();
     }
+
     @Override
     protected void onHandleIntent(Intent intent) {
 
@@ -104,10 +104,10 @@ public class TrackingService extends IntentService{
         SharePref mPrefs = new SharePref(context);
 
         // Prepare to send data in DB to Server
-        synchronized (SQLiteHelper.class){
+        synchronized (SQLiteHelper.class) {
             SQLiteHelper dbHelper = new SQLiteHelper(context);
 
-            if(!mPrefs.hasFirstRunStart() && !StringUtil.isNullorEmpty(mPrefs.getInstallReferrer())){
+            if (!mPrefs.hasFirstRunStart() && !StringUtil.isNullorEmpty(mPrefs.getInstallReferrer())) {
                 // record that first run is in database
                 mPrefs.setFirstRunStart(true);
                 // Check runFirst in DB and other things..
@@ -115,19 +115,30 @@ public class TrackingService extends IntentService{
                 tracking.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer()); // put changed referrer
                 tracking.putValuePair(TrackingMapKey.GOOGLE_AD_ID, mPrefs.getGoogleAdId()); // put google ad id
                 dbHelper.putTemporary(tracking.getTrackingList());
+            } else if (mPrefs.hasFirstRunStart() && mPrefs.getReceiverActivated() == 1) {
+                mPrefs.setReceiverActivated(2); // create run first mode
+
+                // Check if FirstRun exist in DB
+                if (!checkIfFirstRunExistInDB(dbHelper)) {
+                    // Create new First Run tracking
+                    TrackingModel tracking = new TrackerFactory(context).newFirstRunTracking();
+                    tracking.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer()); // put changed referrer
+                    tracking.putValuePair(TrackingMapKey.GOOGLE_AD_ID, mPrefs.getGoogleAdId()); // put google ad id
+                    dbHelper.putTemporary(tracking.getTrackingList());
+                }
             }
 
             // Check if there is other left data And update Install_referrer in all db?
             SQLiteDatabase db = null;
             Cursor c;
-            try{
+            try {
                 db = dbHelper.getReadableDatabase();
                 c = db.query(SQLiteHelper.TABLE_TEMPORARY, new String[]{SQLiteHelper.COLUMN_ID, SQLiteHelper.COLUMN_DATA}, null, null, null, null, null);
 
                 int count = c.getCount();
                 LOG.i(TAG, "tracking count in DB : " + count);
 
-                if(count <= 0){
+                if (count <= 0) {
                     LOG.i(TAG, "No temporary tracking data");
                     return;
                 }
@@ -140,8 +151,8 @@ public class TrackingService extends IntentService{
 
                 TrackingModel trackingModel = null;
 
-                if(count > 0){
-                    while(c.moveToNext()){
+                if (count > 0) {
+                    while (c.moveToNext()) {
                         LOG.i(TAG, "row id: " + c.getInt(columnId));
                         trackingModel = new JsonUtil().fromJson(c.getString(columnData));
                         trackingModel.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer());
@@ -151,13 +162,13 @@ public class TrackingService extends IntentService{
 
                         // If tracking is First Run and do not have Install referrer then, skip it.
                         // FIRST RUN type
-                        if(trackingModel.getValuePair(TrackingMapKey.TRACKING_EVENT).equals(TrackingModel.TrackingEvent.FIRST_RUN.toAcronymCode())) {
-                            // Install referrer exists
-                            if(!StringUtil.isNullorEmpty(mPrefs.getInstallReferrer()))
-                                trackingMultipleList.add(trackingModel.getTrackingList());
-                        }else {
-                            trackingMultipleList.add(trackingModel.getTrackingList());
-                        }
+//                        if(trackingModel.getValuePair(TrackingMapKey.TRACKING_EVENT).equals(TrackingModel.TrackingEvent.FIRST_RUN.toAcronymCode())) {
+//                            // Install referrer exists
+//                            if(!StringUtil.isNullorEmpty(mPrefs.getInstallReferrer()))
+//                                trackingMultipleList.add(trackingModel.getTrackingList());
+//                        }else {
+                        trackingMultipleList.add(trackingModel.getTrackingList());
+//                        }
                         LOG.i(TAG, trackingModel.toString());
                     }
                 }
@@ -168,11 +179,55 @@ public class TrackingService extends IntentService{
                 new TrackerHttpConnection().sendTrackingInDBToServer(context, trackingMultipleList);
 
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
+    }
 
+    /**
+     * Check if FIRST_RUN exists in database
+     */
+    private boolean checkIfFirstRunExistInDB(SQLiteHelper dbHelper) {
+        SQLiteDatabase db = null;
+        Cursor c;
+        try {
+            db = dbHelper.getReadableDatabase();
+            c = db.query(SQLiteHelper.TABLE_TEMPORARY, new String[]{SQLiteHelper.COLUMN_ID, SQLiteHelper.COLUMN_DATA}, null, null, null, null, null);
+
+            int count = c.getCount();
+            LOG.i(TAG, "tracking count in DB : " + count);
+
+            if (count <= 0) {
+                LOG.i(TAG, "No temporary tracking data");
+                return false;
+            }
+
+            final int columnId = c.getColumnIndex(SQLiteHelper.COLUMN_ID);
+            final int columnData = c.getColumnIndex(SQLiteHelper.COLUMN_DATA);
+
+            List<List<TrackingModel>> trackingMultipleList = new ArrayList<>(); // Contain tracking lists
+
+            TrackingModel trackingModel = null;
+
+            if (count > 0) {
+                while (c.moveToNext()) {
+                    LOG.i(TAG, "row id: " + c.getInt(columnId));
+                    trackingModel = new JsonUtil().fromJson(c.getString(columnData));
+
+                    // If tracking is First Run then return true
+                    if (trackingModel.getValuePair(TrackingMapKey.TRACKING_EVENT).equals(TrackingModel.TrackingEvent.FIRST_RUN.toAcronymCode())) {
+                        return true;
+                    }
+                }
+            }
+
+            c.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

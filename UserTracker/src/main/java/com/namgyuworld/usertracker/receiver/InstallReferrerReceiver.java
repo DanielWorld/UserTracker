@@ -53,6 +53,8 @@ public class InstallReferrerReceiver extends BroadcastReceiver{
         if(StringUtil.isNullorEmpty(prefs.getInstallReferrer()) || !referrer.equals(prefs.getInstallReferrer())){
 //            LOG.i(TAG, "install referrer got received. save " + referrer);
             prefs.setInstallReferrer(referrer);
+            // set install referrer has arrived
+            prefs.setReceiverActivated(1);
             // Start Service
             TrackingService.startService(context);
         }
