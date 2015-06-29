@@ -82,6 +82,7 @@ public class HttpStatusCode {
             // 404
             case HttpStatusCode.SC_NOT_FOUND:
                 return "서버로 요청한 명령이 없습니다.";
+            // 405
             case HttpStatusCode.SC_METHOD_NOT_ALLOWED:
                 return "The method specified in the Request-Line is not allowed for the resource identified by the Request-URI. The response MUST include an Allow header containing a list of valid methods for the requested resource.";
             // 408
