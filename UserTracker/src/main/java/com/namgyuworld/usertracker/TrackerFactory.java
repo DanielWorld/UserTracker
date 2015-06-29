@@ -7,6 +7,7 @@ import com.namgyuworld.usertracker.model.TrackingModel;
 import com.namgyuworld.usertracker.model.info.ApplicationInfo;
 import com.namgyuworld.usertracker.model.info.DeviceInfo;
 import com.namgyuworld.usertracker.model.info.EnvironmentInfo;
+import com.namgyuworld.usertracker.preference.SharePref;
 import com.namgyuworld.usertracker.util.AppUtil;
 import com.namgyuworld.usertracker.util.DeviceUtil;
 import com.namgyuworld.usertracker.util.Logger;
@@ -44,6 +45,9 @@ public class TrackerFactory {
         // Get Hashed Google account
         try{
             mHashedGoogleAccount = CryptoUtil.CreateHash.SHA256(AppUtil.getFirstGoogleAccount(context).name);
+            // Save hashed google account in SharedPreferences
+            SharePref mPrefs = new SharePref(context);
+            mPrefs.setGoogleHashedID(mHashedGoogleAccount);
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -125,6 +125,7 @@ public class TrackingService extends IntentService {
                     tracking.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer()); // put changed referrer
                     tracking.putValuePair(TrackingMapKey.GOOGLE_AD_ID, mPrefs.getGoogleAdId()); // put google ad id
                     dbHelper.putTemporary(tracking.getTrackingList());
+
                 }
             }
 
@@ -156,6 +157,9 @@ public class TrackingService extends IntentService {
                         LOG.i(TAG, "row id: " + c.getInt(columnId));
                         trackingModel = new JsonUtil().fromJson(c.getString(columnData));
                         trackingModel.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer());
+                        // 15.06.29 Added two method (Google Account id, and googld ad id)
+                        trackingModel.putValuePair(TrackingMapKey.GOOGLE_ACCOUNT, mPrefs.getGoogleHashedID());
+                        trackingModel.putValuePair(TrackingMapKey.GOOGLE_AD_ID, mPrefs.getGoogleAdId());
 
                         // Add row id to distinguish later
                         trackingModel.putValuePair(TrackingMapKey.TRACKING_ROW_ID, String.valueOf(c.getInt(columnId)));

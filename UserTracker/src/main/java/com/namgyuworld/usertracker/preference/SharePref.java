@@ -14,6 +14,7 @@ public class SharePref {
     private static final String PREF_NAME = "tracker_pref";
 
     private static final String KEY_INSTALL_REFERRER = "install_referrer_key";
+    private static final String KEY_GOOGLE_HASHED_ID = "google_hashed_id";
     private static final String KEY_GOOGLE_AD_ID = "google_ad_id_key";
     private static final String KEY_FIRST_RUN_START = "first_run_start";
     private static final String KEY_RECEIVER_ACTIVATED = "receiver_activivated";
@@ -23,6 +24,14 @@ public class SharePref {
     public SharePref(Context context){
         this.mPrefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
+    // set google hashed id
+    public void setGoogleHashedID(String hashedId){
+        mPrefs.edit().putString(KEY_GOOGLE_HASHED_ID, hashedId).commit();
+    }
+    public String getGoogleHashedID(){
+        return mPrefs.getString(KEY_GOOGLE_HASHED_ID, "");
+    }
+
     // set google advertisement id
     public void setGoogleAdId(String adId){
         mPrefs.edit().putString(KEY_GOOGLE_AD_ID, adId).commit();
