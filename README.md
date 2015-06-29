@@ -51,7 +51,7 @@ Set Receiver to get InstallReferrer
       android:exported="true"&gt;
         &lt;intent-filter&gt;
             &lt;action android:name="com.android.vending.INSTALL_REFERRER" />
-        &lt;/intent-fileter&gt;
+        &lt;/intent-filter&gt;
 &lt;/receiver&gt;
 </pre>
 
