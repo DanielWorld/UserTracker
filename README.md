@@ -40,7 +40,7 @@ To read app id, set meta-data in AndroidManifest.xml
 Tracking data is transmitting through service
 <pre>
 &lt;service
-      android:name="com.namgyuworld.usertracker.service.TrackingService /&gt;
+      android:name="com.namgyuworld.usertracker.service.TrackingService" /&gt;
 </pre>
 
 Set Receiver to get InstallReferrer
@@ -51,7 +51,7 @@ Set Receiver to get InstallReferrer
       android:exported="true"&gt;
         &lt;intent-filter&gt;
             &lt;action android:name="com.android.vending.INSTALL_REFERRER" />
-        &lt;/intent-fileter&gt;
+        &lt;/intent-filter&gt;
 &lt;/receiver&gt;
 </pre>
 
