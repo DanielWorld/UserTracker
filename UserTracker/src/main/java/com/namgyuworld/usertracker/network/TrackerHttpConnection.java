@@ -8,14 +8,17 @@ import com.namgyuworld.usertracker.model.TrackingModel;
 import com.namgyuworld.usertracker.util.AppUtil;
 import com.namgyuworld.usertracker.util.JsonUtil;
 import com.namgyuworld.usertracker.util.Logger;
+import com.namgyuworld.usertracker.util.cryptography.CryptoUtil;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 /**
@@ -42,6 +45,9 @@ public class TrackerHttpConnection {
             @Override
             protected Boolean doInBackground(Void... params) {
                 String trackingData = new JsonUtil().toJson(trackingInfo);
+                /**
+                 * Make sure to encrypt trackingData using symmetric key (AES 128) later
+                 */
                 LOG.i(TAG, "toJson:\n" + trackingData);
 //                LOG.i(TAG, "fromJson:\n" + new JsonUtil().fromJson(trackingData).toString());
 
@@ -123,6 +129,9 @@ public class TrackerHttpConnection {
             @Override
             protected Boolean doInBackground(Void... params) {
                 String trackingData = new JsonUtil().toJsonList(allTrackingInfo);
+                /**
+                 * Make sure to encrypt trackingData using symmetric key (AES 128) later
+                 */
                 LOG.i(TAG, "toJson:\n" + trackingData);
 
                 try {
