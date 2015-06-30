@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="namgyuworld.usertracker" >
+    package="danielworld.usertracker" >
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 필수 -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- 필수 -->
@@ -14,11 +14,11 @@
 
         <!-- meta data for app's unique id -->
         <meta-data
-            android:name="com.namgyuworld.utility.appId"
+            android:name="com.danielworld.utility.appId"
             android:value="@string/appId" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="danielworld.usertracker.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,9 +27,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.namgyuworld.usertracker.service.TrackingService" />
+        <service android:name="com.danielworld.usertracker.service.TrackingService" />
 
-        <receiver android:name="com.namgyuworld.usertracker.receiver.InstallReferrerReceiver"
+        <receiver android:name="com.danielworld.usertracker.receiver.InstallReferrerReceiver"
                   android:enabled="true"
                   android:exported="true">
             <intent-filter>
