@@ -112,8 +112,8 @@ public class TrackingService extends IntentService {
                 mPrefs.setFirstRunStart(true);
                 // Check runFirst in DB and other things..
                 TrackingModel tracking = new TrackerFactory(context).newFirstRunTracking();
-                tracking.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer()); // put changed referrer
-                tracking.putValuePair(TrackingMapKey.GOOGLE_AD_ID, mPrefs.getGoogleAdId()); // put google ad id
+//                tracking.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer()); // put changed referrer
+//                tracking.putValuePair(TrackingMapKey.GOOGLE_AD_ID, mPrefs.getGoogleAdId()); // put google ad id
                 dbHelper.putTemporary(tracking.getTrackingList());
             } else if (mPrefs.hasFirstRunStart() && mPrefs.getReceiverActivated() == 1) {
                 mPrefs.setReceiverActivated(2); // create run first mode
@@ -122,8 +122,8 @@ public class TrackingService extends IntentService {
                 if (!checkIfFirstRunExistInDB(dbHelper)) {
                     // Create new First Run tracking
                     TrackingModel tracking = new TrackerFactory(context).newFirstRunTracking();
-                    tracking.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer()); // put changed referrer
-                    tracking.putValuePair(TrackingMapKey.GOOGLE_AD_ID, mPrefs.getGoogleAdId()); // put google ad id
+//                    tracking.putValuePair(TrackingMapKey.INSTALL_REFERRER, mPrefs.getInstallReferrer()); // put changed referrer
+//                    tracking.putValuePair(TrackingMapKey.GOOGLE_AD_ID, mPrefs.getGoogleAdId()); // put google ad id
                     dbHelper.putTemporary(tracking.getTrackingList());
 
                 }
