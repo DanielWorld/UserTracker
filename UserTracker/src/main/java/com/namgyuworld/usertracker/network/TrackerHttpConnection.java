@@ -9,6 +9,8 @@ import com.namgyuworld.usertracker.util.AppUtil;
 import com.namgyuworld.usertracker.util.JsonUtil;
 import com.namgyuworld.usertracker.util.Logger;
 import com.namgyuworld.usertracker.util.cryptography.CryptoUtil;
+import com.namgyuworld.usertracker.util.cryptography.model.CryptoModel;
+import com.namgyuworld.usertracker.util.cryptography.type.Base64;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -20,6 +22,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.util.List;
+
+import javax.crypto.SecretKey;
 
 /**
  * Copyright (C) 2014-2015 Daniel Park, op7773hons@gmail.com
@@ -48,6 +52,19 @@ public class TrackerHttpConnection {
                 /**
                  * Make sure to encrypt trackingData using symmetric key (AES 128) later
                  */
+                String seedKey = "iidkh*37 *#( 20*#)@KKO";
+                SecretKey skey = CryptoUtil.AESUtils.generateKey(seedKey);
+                CryptoModel model;
+                String iv = null;
+                try {
+                    model = CryptoUtil.AESUtils.encrypt(trackingData, skey);
+                    trackingData = model.getCryptoText();
+                    iv = model.getIv();
+                } catch (UnsupportedEncodingException e) {
+                    trackingData = e.getMessage();
+                } catch (GeneralSecurityException e) {
+                    trackingData = e.getMessage();
+                }
                 LOG.i(TAG, "toJson:\n" + trackingData);
 //                LOG.i(TAG, "fromJson:\n" + new JsonUtil().fromJson(trackingData).toString());
 
@@ -63,6 +80,7 @@ public class TrackerHttpConnection {
                     // Set the headers
                     conn.setRequestProperty("Content-Type", "application/json");
                     conn.setRequestProperty("Authorization", AppUtil.getAppKeyHash(context));
+                    conn.setRequestProperty("Sector", Base64.encodeToString(iv.getBytes(), Base64.NO_WRAP));
 
                     conn.setDoOutput(true);
 
@@ -132,6 +150,19 @@ public class TrackerHttpConnection {
                 /**
                  * Make sure to encrypt trackingData using symmetric key (AES 128) later
                  */
+                String seedKey = "iidkh*37 *#( 20*#)@KKO";
+                SecretKey skey = CryptoUtil.AESUtils.generateKey(seedKey);
+                CryptoModel model;
+                String iv = null;
+                try {
+                    model = CryptoUtil.AESUtils.encrypt(trackingData, skey);
+                    trackingData = model.getCryptoText();
+                    iv = model.getIv();
+                } catch (UnsupportedEncodingException e) {
+                    trackingData = e.getMessage();
+                } catch (GeneralSecurityException e) {
+                    trackingData = e.getMessage();
+                }
                 LOG.i(TAG, "toJson:\n" + trackingData);
 
                 try {
@@ -146,6 +177,7 @@ public class TrackerHttpConnection {
                     // Set the headers
                     conn.setRequestProperty("Content-Type", "application/json");
                     conn.setRequestProperty("Authorization", AppUtil.getAppKeyHash(context));
+                    conn.setRequestProperty("Sector", Base64.encodeToString(iv.getBytes(), Base64.NO_WRAP));
 
                     conn.setDoOutput(true);
 
