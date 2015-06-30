@@ -129,5 +129,5 @@ Go to folder where adb is installed
 
 $ adb shell
 $ am broadcast -a com.android.vending.INSTALL_REFERRER 
--n namgyuworld.usertracker/com.namgyuworld.usertracker.receiver.InstallReferrerReceiver --es "referrer" "com=userTracker&name=daniel&com=namgyuworld&id=234"
+-n danielworld.usertracker/com.danielworld.usertracker.receiver.InstallReferrerReceiver --es "referrer" "com=userTracker&name=daniel&com=namgyuworld&id=234"
 
