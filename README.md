@@ -33,20 +33,20 @@ To read app id, set meta-data in AndroidManifest.xml
     ...&gt;
     ...
     &lt;meta-data
-        android:name="com.namgyuworld.utility.appId"
+        android:name="com.danielworld.utility.appId"
         android:value="@string/app_id" /&gt;
 </pre>
 
 Tracking data is transmitting through service
 <pre>
 &lt;service
-      android:name="com.namgyuworld.usertracker.service.TrackingService" /&gt;
+      android:name="com.danielworld.usertracker.service.TrackingService" /&gt;
 </pre>
 
 Set Receiver to get InstallReferrer
 <pre>
 &lt;receiver
-      android:name="com.namgyuworld.usertracker.receiver.InstallReferrerReceiver"
+      android:name="com.danielworld.usertracker.receiver.InstallReferrerReceiver"
       android:enabled="true"
       android:exported="true"&gt;
         &lt;intent-filter&gt;
@@ -129,5 +129,5 @@ Go to folder where adb is installed
 
 $ adb shell
 $ am broadcast -a com.android.vending.INSTALL_REFERRER 
--n danielworld.usertracker/com.danielworld.usertracker.receiver.InstallReferrerReceiver --es "referrer" "com=userTracker&name=daniel&com=namgyuworld&id=234"
+-n danielworld.usertracker/com.danielworld.usertracker.receiver.InstallReferrerReceiver --es "referrer" "com=userTracker&name=daniel&com=danielworld&id=234"
 
