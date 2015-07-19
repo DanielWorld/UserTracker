@@ -131,3 +131,7 @@ $ adb shell
 $ am broadcast -a com.android.vending.INSTALL_REFERRER 
 -n danielworld.usertracker/com.danielworld.usertracker.receiver.InstallReferrerReceiver --es "referrer" "com=userTracker&name=daniel&com=danielworld&id=234"
 
+#### Caution
+sendFirstRun() will invoke only one time when install referrer is arrived before calling it <br>
+If install referrer wasn't received when sendFirstRun() is invoked, sendFirstRun() will be called without install referrer and wait for install referrer to send sendFirstRun() 
+
