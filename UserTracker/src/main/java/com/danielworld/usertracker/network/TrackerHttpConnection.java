@@ -69,7 +69,7 @@ public class TrackerHttpConnection {
 //                LOG.i(TAG, "fromJson:\n" + new JsonUtil().fromJson(trackingData).toString());
 
                 try {
-                    URL url = new URL(URLs.getURL());   // URL
+                    URL url = new URL(URLs.getURL(URLs.ConnectionMethod.SEND_TRACKING));   // URL
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();  // Open connection
 
                     // Specify POST method
@@ -166,7 +166,7 @@ public class TrackerHttpConnection {
                 LOG.i(TAG, "toJson:\n" + trackingData);
 
                 try {
-                    URL url = new URL(URLs.getURL());   // URL
+                    URL url = new URL(URLs.getURL(URLs.ConnectionMethod.SEND_TRACKING));   // URL
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();  // Open connection
 
                     // Specify POST method
