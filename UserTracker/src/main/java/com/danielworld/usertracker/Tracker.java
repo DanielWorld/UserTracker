@@ -5,13 +5,13 @@ import android.content.res.Resources;
 
 import com.danielworld.usertracker.model.TrackingModel;
 import com.danielworld.usertracker.network.SendTrackingInfo;
-import com.danielworld.usertracker.network.URLs;
 import com.danielworld.usertracker.preference.SharePref;
 import com.danielworld.usertracker.service.TrackingService;
-import com.danielworld.usertracker.util.AppUtil;
-import com.danielworld.usertracker.util.Logger;
-import com.danielworld.usertracker.util.StringUtil;
 import com.danielworld.usertracker.variables.TrackingMapKey;
+import com.namgyuworld.utility.Logger;
+import com.namgyuworld.utility.StringUtil;
+import com.namgyuworld.utility.app.AppUtil;
+import com.namgyuworld.utility.network.URLs;
 
 
 /**
@@ -39,7 +39,7 @@ public class Tracker {
     private void init(Context context){
         checkAppId();
         // Was Application signed by debug.keystore?
-        if(AppUtil.isDebuggable(context)){
+        if(AppUtil.getInstance().isDebuggable(context)){
             URLs.setDebug(true);
             LOG.enableLog();
         }
@@ -58,7 +58,7 @@ public class Tracker {
      * Check if app id exists, if there isn't then throw error
      */
     private void checkAppId(){
-        if(StringUtil.isNullorEmpty(AppUtil.getMetaDataValue(mContext))){
+        if(StringUtil.isNullorEmpty(AppUtil.getInstance().getMetaDataValue(mContext))){
             LOG.e(TAG, "App id is null or empty");
             throw new Resources.NotFoundException("App id wasn't found!!!");
         }

@@ -7,8 +7,8 @@ import android.os.Bundle;
 
 import com.danielworld.usertracker.preference.SharePref;
 import com.danielworld.usertracker.service.TrackingService;
-import com.danielworld.usertracker.util.Logger;
-import com.danielworld.usertracker.util.StringUtil;
+import com.namgyuworld.utility.Logger;
+import com.namgyuworld.utility.StringUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

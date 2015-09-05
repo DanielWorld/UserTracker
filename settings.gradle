@@ -1,1 +1,7 @@
 include ':app', ':UserTracker'
+
+include ':DanielParkUtility'
+project(':DanielParkUtility').projectDir = new File('../Android/DanielParkUtility')
+
+include ':android-volley-master'
+project(':android-volley-master').projectDir = new File('../Android/android-volley-master')

@@ -13,13 +13,13 @@ import com.danielworld.usertracker.TrackerFactory;
 import com.danielworld.usertracker.database.SQLiteHelper;
 import com.danielworld.usertracker.model.TrackingModel;
 import com.danielworld.usertracker.network.TrackerHttpConnection;
-import com.danielworld.usertracker.network.URLs;
 import com.danielworld.usertracker.preference.SharePref;
-import com.danielworld.usertracker.util.AppUtil;
 import com.danielworld.usertracker.util.JsonUtil;
-import com.danielworld.usertracker.util.Logger;
-import com.danielworld.usertracker.util.StringUtil;
 import com.danielworld.usertracker.variables.TrackingMapKey;
+import com.namgyuworld.utility.Logger;
+import com.namgyuworld.utility.StringUtil;
+import com.namgyuworld.utility.app.AppUtil;
+import com.namgyuworld.utility.network.URLs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class TrackingService extends IntentService {
     public static void startService(Context context, long delayTime) {
 
         // Suppose it invokes from Receiver
-        if (AppUtil.isDebuggable(context)) {
+        if (AppUtil.getInstance().isDebuggable(context)) {
             URLs.setDebug(true);
             LOG.enableLog();
         } else {
@@ -182,12 +182,10 @@ public class TrackingService extends IntentService {
                 // Send all trackings in DB to Server
                 new TrackerHttpConnection().sendTrackingInDBToServer(context, trackingMultipleList);
 
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
     }
 
     /**

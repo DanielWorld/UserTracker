@@ -5,12 +5,13 @@ import android.os.AsyncTask;
 
 import com.danielworld.usertracker.database.SQLiteHelper;
 import com.danielworld.usertracker.model.TrackingModel;
-import com.danielworld.usertracker.util.AppUtil;
 import com.danielworld.usertracker.util.JsonUtil;
-import com.danielworld.usertracker.util.Logger;
-import com.danielworld.usertracker.util.cryptography.CryptoUtil;
-import com.danielworld.usertracker.util.cryptography.model.CryptoModel;
-import com.danielworld.usertracker.util.cryptography.type.Base64;
+import com.namgyuworld.utility.Logger;
+import com.namgyuworld.utility.app.AppUtil;
+import com.namgyuworld.utility.cryptography.CryptoUtil;
+import com.namgyuworld.utility.cryptography.model.CryptoModel;
+import com.namgyuworld.utility.cryptography.type.Base64;
+import com.namgyuworld.utility.network.URLs;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -33,7 +34,7 @@ import javax.crypto.SecretKey;
  */
 public class TrackerHttpConnection {
 
-    private final String TAG = TrackerHttpConnection.class.getSimpleName();
+    private final String TAG = "danielTrackerHttpConnect";
     private Logger LOG = Logger.getInstance();
 
     /**
@@ -52,21 +53,24 @@ public class TrackerHttpConnection {
                 /**
                  * Make sure to encrypt trackingData using symmetric key (AES 128) later
                  */
-                String seedKey = "iidkh*37 *#( 20*#)@KKO";
-                SecretKey skey = CryptoUtil.AESUtils.generateKey(seedKey);
-                CryptoModel model;
+                SecretKey secretKey = CryptoUtil.AESUtils.generateKey("829 2-82 @@#1 3FE92j  fjjdjf  g@%$");
+                CryptoModel encryptedModel = null;
                 String iv = null;
                 try {
-                    model = CryptoUtil.AESUtils.encrypt(trackingData, skey);
-                    trackingData = model.getCryptoText();
-                    iv = model.getIv();
+                    encryptedModel = CryptoUtil.AESUtils.encrypt(trackingData, secretKey);
+                    trackingData = encryptedModel.getCryptoText();
+                    iv = encryptedModel.getIv();
                 } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                     trackingData = e.getMessage();
+                    iv = e.getMessage();
                 } catch (GeneralSecurityException e) {
+                    e.printStackTrace();
                     trackingData = e.getMessage();
+                    iv = e.getMessage();
                 }
+
                 LOG.i(TAG, "toJson:\n" + trackingData);
-//                LOG.i(TAG, "fromJson:\n" + new JsonUtil().fromJson(trackingData).toString());
 
                 try {
                     URL url = new URL(URLs.getURL(URLs.ConnectionMethod.SEND_TRACKING));   // URL
@@ -79,7 +83,7 @@ public class TrackerHttpConnection {
 
                     // Set the headers
                     conn.setRequestProperty("Content-Type", "application/json");
-                    conn.setRequestProperty("Authorization", AppUtil.getAppKeyHash(context));
+                    conn.setRequestProperty("Authorization", AppUtil.getInstance().getAppKeyHash(context));
                     conn.setRequestProperty("Sector", Base64.encodeToString(iv.getBytes(), Base64.NO_WRAP));
 
                     conn.setDoOutput(true);
@@ -150,19 +154,23 @@ public class TrackerHttpConnection {
                 /**
                  * Make sure to encrypt trackingData using symmetric key (AES 128) later
                  */
-                String seedKey = "iidkh*37 *#( 20*#)@KKO";
-                SecretKey skey = CryptoUtil.AESUtils.generateKey(seedKey);
-                CryptoModel model;
+                SecretKey secretKey = CryptoUtil.AESUtils.generateKey("829 2-82 @@#1 3FE92j  fjjdjf  g@%$");
+                CryptoModel encryptedModel = null;
                 String iv = null;
                 try {
-                    model = CryptoUtil.AESUtils.encrypt(trackingData, skey);
-                    trackingData = model.getCryptoText();
-                    iv = model.getIv();
+                    encryptedModel = CryptoUtil.AESUtils.encrypt(trackingData, secretKey);
+                    trackingData = encryptedModel.getCryptoText();
+                    iv = encryptedModel.getIv();
                 } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                     trackingData = e.getMessage();
+                    iv = e.getMessage();
                 } catch (GeneralSecurityException e) {
+                    e.printStackTrace();
                     trackingData = e.getMessage();
+                    iv = e.getMessage();
                 }
+
                 LOG.i(TAG, "toJson:\n" + trackingData);
 
                 try {
@@ -176,7 +184,7 @@ public class TrackerHttpConnection {
 
                     // Set the headers
                     conn.setRequestProperty("Content-Type", "application/json");
-                    conn.setRequestProperty("Authorization", AppUtil.getAppKeyHash(context));
+                    conn.setRequestProperty("Authorization", AppUtil.getInstance().getAppKeyHash(context));
                     conn.setRequestProperty("Sector", Base64.encodeToString(iv.getBytes(), Base64.NO_WRAP));
 
                     conn.setDoOutput(true);

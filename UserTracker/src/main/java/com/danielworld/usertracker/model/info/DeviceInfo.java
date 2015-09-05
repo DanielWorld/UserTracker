@@ -1,6 +1,10 @@
 package com.danielworld.usertracker.model.info;
 
 /**
+ * Device info <br>
+ *     It contains (device name, device menufacture, os version)
+ *
+ *     <br><br>
  * Copyright (C) 2014-2015 Daniel Park, op7773hons@gmail.com
  * <p/>
  * This file is part of UserTracker (https://github.com/NamgyuWorld)

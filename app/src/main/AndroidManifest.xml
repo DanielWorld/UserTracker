@@ -14,7 +14,7 @@
 
         <!-- meta data for app's unique id -->
         <meta-data
-            android:name="com.danielworld.utility.appId"
+            android:name="com.danielworld.utility.appID"
             android:value="@string/appId" />
 
         <activity

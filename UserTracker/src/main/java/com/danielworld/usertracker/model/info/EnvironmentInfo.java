@@ -1,6 +1,10 @@
 package com.danielworld.usertracker.model.info;
 
 /**
+ * Environment info POJO <br><br>
+ *     It contains (Country, Language, network provider, current time)
+ *
+ * <br><br>
  * Copyright (C) 2014-2015 Daniel Park, op7773hons@gmail.com
  * <p/>
  * This file is part of UserTracker (https://github.com/NamgyuWorld)

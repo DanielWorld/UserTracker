@@ -15,7 +15,6 @@ public class UserTracker {
     synchronized public static final UserTracker getInstance(Context context){
         if(sThis == null)
             sThis = new UserTracker(context);
-
         return sThis;
     }
     private Tracker mTracker;

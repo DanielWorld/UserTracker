@@ -8,11 +8,11 @@ import com.danielworld.usertracker.database.SQLiteHelper;
 import com.danielworld.usertracker.model.TrackingModel;
 import com.danielworld.usertracker.preference.SharePref;
 import com.danielworld.usertracker.service.TrackingService;
-import com.danielworld.usertracker.util.Logger;
-import com.danielworld.usertracker.util.StringUtil;
-import com.danielworld.usertracker.util.google.adId.GoogleAdvertisingIdClient;
-import com.danielworld.usertracker.util.google.adId.OnAdvertisingIDcompleteListener;
 import com.danielworld.usertracker.variables.TrackingMapKey;
+import com.namgyuworld.utility.Logger;
+import com.namgyuworld.utility.StringUtil;
+import com.namgyuworld.utility.google.adid.GoogleAdvertisingIdClient;
+import com.namgyuworld.utility.google.adid.interfaces.OnAdvertisingIDcompleteListener;
 
 /**
  * Copyright (C) 2014-2015 Daniel Park, op7773hons@gmail.com
@@ -64,25 +64,25 @@ public class SendTrackingInfo {
                 SQLiteHelper dbHelper = new SQLiteHelper(mContext);
                 SQLiteDatabase db = null;
                 Cursor c = null;
-                try{
+                try {
                     db = dbHelper.getReadableDatabase();
                     c = db.query(SQLiteHelper.TABLE_TEMPORARY, new String[]{SQLiteHelper.COLUMN_ID, SQLiteHelper.COLUMN_DATA}, null, null, null, null, null);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
                 // Check install_referrer
-                if(!StringUtil.isNullorEmpty(mPref.getInstallReferrer())){
+                if (!StringUtil.isNullorEmpty(mPref.getInstallReferrer())) {
                     // Referrer exists
                     LOG.i(TAG, "Install Referrer exists");
 
-                    if(c.getCount() == 0){
+                    if (c.getCount() == 0) {
                         LOG.v(TAG, "No temporory tracking data!");
                         c.close();
                         db.close();
                         // Send tracking data to Server
                         sendTracking(trackingModel);
-                    }else{
+                    } else {
                         // Save current tracking data
                         saveTemporary(trackingModel);
                         c.close();
@@ -90,8 +90,7 @@ public class SendTrackingInfo {
                         // Start service
                         TrackingService.startService(mContext);
                     }
-                }
-                else{
+                } else {
                     // Referrer doesn't exist
                     // Save current tracking data
                     saveTemporary(trackingModel);

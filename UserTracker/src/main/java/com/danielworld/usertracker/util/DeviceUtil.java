@@ -9,6 +9,8 @@ import android.telephony.TelephonyManager;
 import com.danielworld.usertracker.model.info.ApplicationInfo;
 import com.danielworld.usertracker.model.info.DeviceInfo;
 import com.danielworld.usertracker.model.info.EnvironmentInfo;
+import com.namgyuworld.utility.Logger;
+import com.namgyuworld.utility.StringUtil;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -25,10 +27,17 @@ public class DeviceUtil {
     private static final String TAG = DeviceUtil.class.getSimpleName();
     private static Logger LOG = Logger.getInstance();
 
+    private static DeviceUtil sThis;
+    public synchronized static final DeviceUtil getInstance(){
+        if(sThis == null)
+            return sThis = new DeviceUtil();
+        return sThis;
+    }
+
     /**
      * Get device information
      */
-    public static final DeviceInfo getDeviceInfo(){
+    public final DeviceInfo getDeviceInfo(){
         DeviceInfo di = new DeviceInfo();
         di.setDeviceName(Build.MODEL);
         di.setDeviceManufacture(Build.MANUFACTURER);
@@ -42,7 +51,7 @@ public class DeviceUtil {
     }
 
 
-    public static final ApplicationInfo getAppInfo(Context context){
+    public final ApplicationInfo getAppInfo(Context context){
         PackageManager pm = context.getPackageManager();
         PackageInfo packageInfo = null;
 
@@ -59,7 +68,7 @@ public class DeviceUtil {
         return ai;
     }
 
-    public static final EnvironmentInfo getEnvironmentInfo(Context context){
+    public final EnvironmentInfo getEnvironmentInfo(Context context){
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         DateFormat dateFormat = DateFormat.getInstance();
 
@@ -71,11 +80,11 @@ public class DeviceUtil {
         return enInfo;
     }
 
-    private static String getCountry(TelephonyManager tm) {
+    private String getCountry(TelephonyManager tm) {
         return (tm.getSimState() == TelephonyManager.SIM_STATE_READY) ? tm.getSimCountryIso() : Locale.getDefault().getCountry();
     }
 
-    private static String getNetworkProvider(TelephonyManager tm) {
+    private String getNetworkProvider(TelephonyManager tm) {
         LOG.v(TAG, "Network Operator Name: " + tm.getNetworkOperatorName());
         LOG.v(TAG, "Sim Operator Name: " + tm.getSimOperatorName());
         String provider = null;

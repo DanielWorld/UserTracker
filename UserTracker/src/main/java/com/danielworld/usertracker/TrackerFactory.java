@@ -7,11 +7,11 @@ import com.danielworld.usertracker.model.info.ApplicationInfo;
 import com.danielworld.usertracker.model.info.DeviceInfo;
 import com.danielworld.usertracker.model.info.EnvironmentInfo;
 import com.danielworld.usertracker.preference.SharePref;
-import com.danielworld.usertracker.util.AppUtil;
 import com.danielworld.usertracker.util.DeviceUtil;
-import com.danielworld.usertracker.util.Logger;
-import com.danielworld.usertracker.util.cryptography.CryptoUtil;
 import com.danielworld.usertracker.variables.TrackingMapKey;
+import com.namgyuworld.utility.Logger;
+import com.namgyuworld.utility.app.AppUtil;
+import com.namgyuworld.utility.cryptography.CryptoUtil;
 
 /**
  * Copyright (C) 2014-2015 Daniel Park, op7773hons@gmail.com
@@ -34,13 +34,13 @@ public class TrackerFactory {
     public TrackerFactory(Context context){
         this.mContext = context;
 
-        mApplicationInfo = DeviceUtil.getAppInfo(context);
-        mDeviceInfo = DeviceUtil.getDeviceInfo();
-        mEnvironmentInfo = DeviceUtil.getEnvironmentInfo(context);
+        mApplicationInfo = DeviceUtil.getInstance().getAppInfo(context);
+        mDeviceInfo = DeviceUtil.getInstance().getDeviceInfo();
+        mEnvironmentInfo = DeviceUtil.getInstance().getEnvironmentInfo(context);
 
         // Get Hashed Google account
         try{
-            mHashedGoogleAccount = CryptoUtil.CreateHash.SHA256(AppUtil.getFirstGoogleAccount(context).name);
+            mHashedGoogleAccount = CryptoUtil.CreateHash.SHA256(AppUtil.getInstance().getFirstGoogleAccount(context).name);
             // Save hashed google account in SharedPreferences
             SharePref mPrefs = new SharePref(context);
             mPrefs.setGoogleHashedID(mHashedGoogleAccount);
@@ -53,7 +53,7 @@ public class TrackerFactory {
         LOG.i(TAG, "New First Run tracking.");
 
         TrackingModel tracking = new TrackingModel();
-        tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getMetaDataValue(mContext));
+        tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getInstance().getMetaDataValue(mContext));
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.FIRST_RUN.toAcronymCode());
         tracking.putValuePair(TrackingMapKey.TRACKING_OCCUR_TIME, String.valueOf(System.currentTimeMillis()));
 
@@ -64,7 +64,7 @@ public class TrackerFactory {
         LOG.i(TAG, "New Foreground tracking.");
 
         TrackingModel tracking = new TrackingModel();
-        tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getMetaDataValue(mContext));
+        tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getInstance().getMetaDataValue(mContext));
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.FOREGROUND.toAcronymCode());
         tracking.putValuePair(TrackingMapKey.TRACKING_OCCUR_TIME, String.valueOf(System.currentTimeMillis()));
         tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
@@ -76,7 +76,7 @@ public class TrackerFactory {
         LOG.i(TAG, "New Background tracking.");
 
         TrackingModel tracking = new TrackingModel();
-        tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getMetaDataValue(mContext));
+        tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getInstance().getMetaDataValue(mContext));
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.BACKGROUND.toAcronymCode());
         tracking.putValuePair(TrackingMapKey.TRACKING_OCCUR_TIME, String.valueOf(System.currentTimeMillis()));
         tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
@@ -88,7 +88,7 @@ public class TrackerFactory {
         LOG.i(TAG, "New Action tracking.");
 
         TrackingModel tracking = new TrackingModel();
-        tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getMetaDataValue(mContext));
+        tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getInstance().getMetaDataValue(mContext));
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.ACTION.toAcronymCode());
         tracking.putValuePair(TrackingMapKey.TRACKING_OCCUR_TIME, String.valueOf(System.currentTimeMillis()));
         tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);

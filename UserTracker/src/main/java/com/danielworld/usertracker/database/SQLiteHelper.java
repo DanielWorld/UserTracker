@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.danielworld.usertracker.model.TrackingModel;
 import com.danielworld.usertracker.util.JsonUtil;
-import com.danielworld.usertracker.util.Logger;
 import com.danielworld.usertracker.variables.TrackingMapKey;
+import com.namgyuworld.utility.Logger;
 
 import java.util.List;
 
