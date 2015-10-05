@@ -28,11 +28,14 @@ public class DeviceUtil {
     private static Logger LOG = Logger.getInstance();
 
     private static DeviceUtil sThis;
+    private DeviceUtil(){}
     public synchronized static final DeviceUtil getInstance(){
         if(sThis == null)
             return sThis = new DeviceUtil();
         return sThis;
     }
+
+
 
     /**
      * Get device information

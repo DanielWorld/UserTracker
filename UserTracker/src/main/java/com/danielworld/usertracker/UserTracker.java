@@ -20,7 +20,7 @@ public class UserTracker {
     private Tracker mTracker;
     private TrackerFactory mTrackerFactory;
 
-    public UserTracker(Context context){
+    private UserTracker(Context context){
         this.mTracker = new Tracker(context);
         this.mTrackerFactory = new TrackerFactory(context);
     }
