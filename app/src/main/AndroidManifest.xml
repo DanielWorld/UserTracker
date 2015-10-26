@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 필수 -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- 필수 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 디바이스 아이디 때문에 필수 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application

@@ -19,6 +19,7 @@ public class TrackingMapKey {
 
     public static final String INSTALL_REFERRER = "install_referrer";
     public static final String GOOGLE_ACCOUNT = "hashed_google_account";
+    public static final String DEVICE_ID = "device_id";
     public static final String GOOGLE_AD_ID = "google_ad_id";
     public static final String OS_VERSION = "os_ver";
     public static final String APP_PACKAGE_NAME = "app_package_name";
@@ -29,7 +30,6 @@ public class TrackingMapKey {
     public static final String COUNTRY = "country";
     public static final String LANGUAGE = "language";
     public static final String NETWORK_PROVIDER = "network_provider";
-    public static final String CURRENT_TIME = "current_time";
 
     public static final String TRACKING_ROW_ID = "row_id";
 

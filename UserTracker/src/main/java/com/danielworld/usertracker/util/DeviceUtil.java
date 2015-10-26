@@ -76,6 +76,7 @@ public class DeviceUtil {
         DateFormat dateFormat = DateFormat.getInstance();
 
         final EnvironmentInfo enInfo = new EnvironmentInfo();
+        enInfo.setDevicdId(tm.getDeviceId());
         enInfo.setCurrentTime(dateFormat.format(new Date()));
         enInfo.setNetworkProvider(getNetworkProvider(tm));
         enInfo.setCountry(getCountry(tm));

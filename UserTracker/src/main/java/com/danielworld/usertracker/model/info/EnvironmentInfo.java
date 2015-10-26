@@ -12,6 +12,7 @@ package com.danielworld.usertracker.model.info;
  */
 public class EnvironmentInfo {
 
+    private String devicdId;
     private String country;
     private String language;
     private String networkProvider;
@@ -49,9 +50,20 @@ public class EnvironmentInfo {
         this.currentTime = currentTime;
     }
 
+    public String getDevicdId() {
+        return devicdId;
+    }
+
+    public void setDevicdId(String devicdId) {
+        this.devicdId = devicdId;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("deviceId: ");
+        stringBuilder.append(getDevicdId());
+        stringBuilder.append("\n");
         stringBuilder.append("country: ");
         stringBuilder.append(getCountry());
         stringBuilder.append("\n");

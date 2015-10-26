@@ -53,8 +53,8 @@ public class SendTrackingInfo {
                 } else {
                     mPref.setGoogleAdId(adId);
                 }
-                // Do some stuff
-                trackingModel.putValuePair(TrackingMapKey.GOOGLE_AD_ID, advertisementID);
+                // Add google ad id to tracking model
+//                trackingModel.putValuePair(TrackingMapKey.GOOGLE_AD_ID, advertisementID);
                 LOG.i(TAG, trackingModel.toString());
 
                 /**
