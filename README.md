@@ -2,20 +2,21 @@
 UserTracking SDK : Tracks Users action
 
 ## Development Environment
-- Apple OS X 10.10 & Windows 7
-- Android Studio 1.3.0
+- Apple OS X 10.10 & Windows 10
+- Android Studio 1.4.0
 - Java version 1.8.0_45
-- Android 5.1.1 (22)
+- Android 6 (23)
 
 ## Environment Settings
 - in app/build.gradle
     minSdkVersion should be 10 or higher level
 
 ### AndroidManifest.xml Settings
-INTERNET, GET_ACCOUNTS are required
+INTERNET, GET_ACCOUNTS, READ_PHONE_STATE are required
 <pre>
 &lt;uses-permission android:name="android.permission.INTERNET" /&gt; <!-- Required -->
 &lt;uses-permission android:name="android.permission.GET_ACCOUNTS" /&gt; <!-- Required -->
+&lt;uses-permission android:name="android.permission.READ_PHONE_STATE" /&gt; <!-- Required -->
 &lt;uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /&gt;
 </pre>
 
@@ -60,6 +61,28 @@ You can get UserTracker like this
 <pre>
 synchronized public static final UserTracker getInstance(Context context)
 </pre>
+
+### Caution!! From Android M (6.0), You must request permissions so you do have to write those script first before use below 4 methods
+
+<pre>
+if (Build.VERSION.SDK_INT >= 23) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 122);
+            }
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.GET_ACCOUNTS}, 131);
+            }
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 142);
+            }
+        }
+//        ....
+//        ....
+        UserTracker.getInstance(this).sendFirstRun();
+</pre>
+- Don't care about request int numbers. you can set whatever you want later.
 
 UserTracker gives you 4 methods
 - public final void sendFirstRun()
