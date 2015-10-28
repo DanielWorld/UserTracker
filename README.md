@@ -62,7 +62,7 @@ You can get UserTracker like this
 synchronized public static final UserTracker getInstance(Context context)
 </pre>
 
-### Caution!! From Android M (6.0), You must request permissions so you do have to write those script first before use below 4 methods
+### Caution!! From Android M (6.0), You must request permissions so you do have to write these script first before use below 4 main methods
 
 <pre>
 if (Build.VERSION.SDK_INT >= 23) {
