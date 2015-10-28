@@ -84,7 +84,7 @@ public class TrackerHttpConnection {
                     // Set the headers
                     conn.setRequestProperty("Content-Type", "application/json");
                     conn.setRequestProperty("Platform", "android");
-                    conn.setRequestProperty("Authorization", AppUtil.getInstance().getAppKeyHash(context));
+//                    conn.setRequestProperty("Authorization", AppUtil.getInstance().getAppKeyHash(context));
                     conn.setRequestProperty("Sector", Base64.encodeToString(iv.getBytes(), Base64.NO_WRAP));
 
                     conn.setDoOutput(true);
@@ -186,7 +186,7 @@ public class TrackerHttpConnection {
                     // Set the headers
                     conn.setRequestProperty("Content-Type", "application/json");
                     conn.setRequestProperty("Platform", "android");
-                    conn.setRequestProperty("Authorization", AppUtil.getInstance().getAppKeyHash(context));
+//                    conn.setRequestProperty("Authorization", AppUtil.getInstance().getAppKeyHash(context));
                     conn.setRequestProperty("Sector", Base64.encodeToString(iv.getBytes(), Base64.NO_WRAP));
 
                     conn.setDoOutput(true);
