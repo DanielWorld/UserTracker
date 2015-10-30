@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.danielpark.androidlibrary.StringUtil;
+import com.danielpark.androidlibrary.log.Logger;
 import com.danielworld.usertracker.preference.SharePref;
 import com.danielworld.usertracker.service.TrackingService;
-import com.namgyuworld.utility.Logger;
-import com.namgyuworld.utility.StringUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -36,7 +36,7 @@ public class InstallReferrerReceiver extends BroadcastReceiver{
 
         // check: refferrer empty.
         String referrer = data.getString("referrer");
-        if (StringUtil.isNullorEmpty(referrer)) {
+        if (StringUtil.getInstance().isNullorEmpty(referrer)) {
             LOG.w(TAG, "Receive install referrer. But refferrer is empty(or null).");
             return;
         }
@@ -50,7 +50,7 @@ public class InstallReferrerReceiver extends BroadcastReceiver{
 
         SharePref prefs = new SharePref(context);
 
-        if(StringUtil.isNullorEmpty(prefs.getInstallReferrer()) || !referrer.equals(prefs.getInstallReferrer())){
+        if(StringUtil.getInstance().isNullorEmpty(prefs.getInstallReferrer()) || !referrer.equals(prefs.getInstallReferrer())){
 //            LOG.i(TAG, "install referrer got received. save " + referrer);
             prefs.setInstallReferrer(referrer);
             // set install referrer has arrived

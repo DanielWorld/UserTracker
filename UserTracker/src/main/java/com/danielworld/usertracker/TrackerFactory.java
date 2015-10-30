@@ -2,6 +2,8 @@ package com.danielworld.usertracker;
 
 import android.content.Context;
 
+import com.danielpark.androidlibrary.app.AppUtil;
+import com.danielpark.androidlibrary.log.Logger;
 import com.danielworld.usertracker.model.TrackingModel;
 import com.danielworld.usertracker.model.info.ApplicationInfo;
 import com.danielworld.usertracker.model.info.DeviceInfo;
@@ -9,9 +11,6 @@ import com.danielworld.usertracker.model.info.EnvironmentInfo;
 import com.danielworld.usertracker.preference.SharePref;
 import com.danielworld.usertracker.util.DeviceUtil;
 import com.danielworld.usertracker.variables.TrackingMapKey;
-import com.namgyuworld.utility.Logger;
-import com.namgyuworld.utility.app.AppUtil;
-import com.namgyuworld.utility.cryptography.CryptoUtil;
 
 /**
  * Copyright (C) 2014-2015 Daniel Park, op7773hons@gmail.com

@@ -1,8 +1,11 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.danielworld.usertracker">
+<manifest package="com.danielworld.usertracker"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
-    <application android:allowBackup="true"
-        >
+    <!-- It happens when you import lower API level library than yours, to avoid this situation wrote this script -->
+    <uses-sdk tools:overrideLibrary="com.danielpark.androidlibrary"/>
+
+    <application android:allowBackup="true">
 
     </application>
 

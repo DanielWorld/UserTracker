@@ -6,11 +6,11 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
+import com.danielpark.androidlibrary.StringUtil;
+import com.danielpark.androidlibrary.log.Logger;
 import com.danielworld.usertracker.model.info.ApplicationInfo;
 import com.danielworld.usertracker.model.info.DeviceInfo;
 import com.danielworld.usertracker.model.info.EnvironmentInfo;
-import com.namgyuworld.utility.Logger;
-import com.namgyuworld.utility.StringUtil;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -46,7 +46,7 @@ public class DeviceUtil {
         di.setDeviceManufacture(Build.MANUFACTURER);
 
         String osVersion = Build.VERSION.RELEASE;
-        if(StringUtil.isNullorEmpty(osVersion)){
+        if(StringUtil.getInstance().isNullorEmpty(osVersion)){
             osVersion = String.valueOf(Build.VERSION.SDK_INT);
         }
         di.setOsVersion(osVersion);
@@ -96,10 +96,10 @@ public class DeviceUtil {
         if(tm.getSimState() == TelephonyManager.SIM_STATE_READY){
             provider = tm.getSimOperatorName();
         }
-        if(StringUtil.isNullorEmpty(provider)){
+        if(StringUtil.getInstance().isNullorEmpty(provider)){
             provider = tm.getNetworkOperatorName();
         }
-        return StringUtil.isNullorEmpty(provider) ? "UNKNOWN" : provider;
+        return StringUtil.getInstance().isNullorEmpty(provider) ? "UNKNOWN" : provider;
     }
 
 }

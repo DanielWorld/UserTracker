@@ -9,17 +9,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.SystemClock;
 
+import com.danielpark.androidlibrary.StringUtil;
+import com.danielpark.androidlibrary.app.AppUtil;
+import com.danielpark.androidlibrary.log.Logger;
 import com.danielworld.usertracker.TrackerFactory;
 import com.danielworld.usertracker.database.SQLiteHelper;
 import com.danielworld.usertracker.model.TrackingModel;
 import com.danielworld.usertracker.network.TrackerHttpConnection;
+import com.danielworld.usertracker.network.URLs;
 import com.danielworld.usertracker.preference.SharePref;
 import com.danielworld.usertracker.util.JsonUtil;
 import com.danielworld.usertracker.variables.TrackingMapKey;
-import com.namgyuworld.utility.Logger;
-import com.namgyuworld.utility.StringUtil;
-import com.namgyuworld.utility.app.AppUtil;
-import com.namgyuworld.utility.network.URLs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +107,7 @@ public class TrackingService extends IntentService {
         synchronized (SQLiteHelper.class) {
             SQLiteHelper dbHelper = new SQLiteHelper(context);
 
-            if (!mPrefs.hasFirstRunStart() && !StringUtil.isNullorEmpty(mPrefs.getInstallReferrer())) {
+            if (!mPrefs.hasFirstRunStart() && !StringUtil.getInstance().isNullorEmpty(mPrefs.getInstallReferrer())) {
                 // record that first run is in database
                 mPrefs.setFirstRunStart(true);
                 // Check runFirst in DB and other things..

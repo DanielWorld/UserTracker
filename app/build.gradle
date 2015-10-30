@@ -25,5 +25,4 @@ dependencies {
     // To use robotium for android Test
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:4.3.1'
     compile project(':UserTracker')
-//    compile project(':DanielParkUtility')
 }

@@ -5,10 +5,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.danielpark.androidlibrary.log.Logger;
 import com.danielworld.usertracker.model.TrackingModel;
 import com.danielworld.usertracker.util.JsonUtil;
 import com.danielworld.usertracker.variables.TrackingMapKey;
-import com.namgyuworld.utility.Logger;
 
 import java.util.List;
 

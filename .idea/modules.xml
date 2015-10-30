@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../Android/DanielParkUtility/DanielParkUtility.iml" filepath="$PROJECT_DIR$/../Android/DanielParkUtility/DanielParkUtility.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Android/androidlibrary/AndroidLibrary.iml" filepath="$PROJECT_DIR$/../Android/androidlibrary/AndroidLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/UserTracker.iml" filepath="$PROJECT_DIR$/UserTracker.iml" />
       <module fileurl="file://$PROJECT_DIR$/UserTracker/UserTracker-UserTracker.iml" filepath="$PROJECT_DIR$/UserTracker/UserTracker-UserTracker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Android/android-volley-master/android-volley-master.iml" filepath="$PROJECT_DIR$/../Android/android-volley-master/android-volley-master.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Android/android-volley-master/android-volley-master.iml" filepath="$PROJECT_DIR$/../Android/android-volley-master/android-volley-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
