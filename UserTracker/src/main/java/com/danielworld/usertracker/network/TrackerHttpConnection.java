@@ -3,7 +3,7 @@ package com.danielworld.usertracker.network;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.danielpark.androidlibrary.cryptography.CryptoUtil;
+import com.danielpark.androidlibrary.cryptography.AESUtils;
 import com.danielpark.androidlibrary.cryptography.model.CryptoModel;
 import com.danielpark.androidlibrary.cryptography.type.Base64;
 import com.danielpark.androidlibrary.log.Logger;
@@ -51,18 +51,14 @@ public class TrackerHttpConnection {
                 /**
                  * Make sure to encrypt trackingData using symmetric key (AES 128) later
                  */
-                SecretKey secretKey = CryptoUtil.AESUtils.generateKey("829 2-82 @@#1 3FE92j  fjjdjf  g@%$");
+                SecretKey secretKey = AESUtils.generateKey("829 2-82 @@#1 3FE92j  fjjdjf  g@%$");
                 CryptoModel encryptedModel = null;
                 String iv = null;
                 try {
-                    encryptedModel = CryptoUtil.AESUtils.encrypt(trackingData, secretKey);
+                    encryptedModel = AESUtils.encrypt(trackingData, secretKey);
                     trackingData = encryptedModel.getCryptoText();
                     iv = encryptedModel.getIv();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                    trackingData = e.getMessage();
-                    iv = e.getMessage();
-                } catch (GeneralSecurityException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     trackingData = e.getMessage();
                     iv = e.getMessage();
@@ -153,18 +149,14 @@ public class TrackerHttpConnection {
                 /**
                  * Make sure to encrypt trackingData using symmetric key (AES 128) later
                  */
-                SecretKey secretKey = CryptoUtil.AESUtils.generateKey("829 2-82 @@#1 3FE92j  fjjdjf  g@%$");
+                SecretKey secretKey = AESUtils.generateKey("829 2-82 @@#1 3FE92j  fjjdjf  g@%$");
                 CryptoModel encryptedModel = null;
                 String iv = null;
                 try {
-                    encryptedModel = CryptoUtil.AESUtils.encrypt(trackingData, secretKey);
+                    encryptedModel = AESUtils.encrypt(trackingData, secretKey);
                     trackingData = encryptedModel.getCryptoText();
                     iv = encryptedModel.getIv();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                    trackingData = e.getMessage();
-                    iv = e.getMessage();
-                } catch (GeneralSecurityException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     trackingData = e.getMessage();
                     iv = e.getMessage();

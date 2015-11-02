@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '23.0.2'
 
     defaultConfig {
         applicationId "danielworld.usertracker"
@@ -11,10 +11,21 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    // signing configuration (used debug.keystore)
+    signingConfigs {
+        release {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('/home/daniel/.android/debug.keystore')
+            storePassword 'android'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -22,6 +33,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.0.1'
+    testCompile 'junit:junit:4.12'
     // To use robotium for android Test
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:4.3.1'
     compile project(':UserTracker')
