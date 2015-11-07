@@ -100,6 +100,6 @@
     <orderEntry type="library" exported="" scope="TEST" name="mockito-core-1.9.5" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.1.0" level="project" />
-    <orderEntry type="module" module-name="AndroidLibrary" exported="" />
+    <orderEntry type="library" exported="" name="AndroidLibrary-unspecified" level="project" />
   </component>
 </module>

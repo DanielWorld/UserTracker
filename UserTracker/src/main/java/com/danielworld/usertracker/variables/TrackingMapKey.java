@@ -12,6 +12,7 @@ public class TrackingMapKey {
 
     public static final String TRACKING_APP_ID = "app_id";
     public static final String TRACKING_TAG = "tag";
+    public static final String TRACKING_ACTION = "action";
 
     public static final String TRACKING_EVENT = "tracking_type";
     public static final String TRACKING_OCCUR_TIME = "tracking_time";

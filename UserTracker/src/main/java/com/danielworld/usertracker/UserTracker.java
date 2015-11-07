@@ -76,12 +76,15 @@ public class UserTracker {
         }
     }
 
+    public final void sendForeground(String tag){
+        sendForeground(tag, null);
+    }
     /**
      * Called when app is foreground
      *
      * @param tag
      */
-    public final void sendForeground(String tag) {
+    public final void sendForeground(String tag, String action) {
         if (Build.VERSION.SDK_INT >= 10) {
             if (Build.VERSION.SDK_INT >= 23) {
                 if (permissionExist()) {
@@ -90,20 +93,23 @@ public class UserTracker {
                     if (mTrackerFactory == null)
                         mTrackerFactory = new TrackerFactory(mContext);
 
-                    mTracker.send(mTrackerFactory.newForegroundTracking(tag));
+                    mTracker.send(mTrackerFactory.newForegroundTracking(tag, action));
                 }
             } else {
-                mTracker.send(mTrackerFactory.newForegroundTracking(tag));
+                mTracker.send(mTrackerFactory.newForegroundTracking(tag, action));
             }
         }
     }
 
+    public final void sendBackground(String tag){
+        sendBackground(tag, null);
+    }
     /**
      * Called when app is background
      *
      * @param tag
      */
-    public final void sendBackground(String tag) {
+    public final void sendBackground(String tag, String action) {
         if (Build.VERSION.SDK_INT >= 10) {
             if (Build.VERSION.SDK_INT >= 23) {
                 if (permissionExist()) {
@@ -112,21 +118,24 @@ public class UserTracker {
                     if (mTrackerFactory == null)
                         mTrackerFactory = new TrackerFactory(mContext);
 
-                    mTracker.send(mTrackerFactory.newBackgroundTracking(tag));
+                    mTracker.send(mTrackerFactory.newBackgroundTracking(tag, action));
                 }
             } else {
-                mTracker.send(mTrackerFactory.newBackgroundTracking(tag));
+                mTracker.send(mTrackerFactory.newBackgroundTracking(tag, action));
             }
 
         }
     }
 
+    public final void sendAction(String tag){
+        sendAction(tag, null);
+    }
     /**
      * Called when app sends certain action
      *
      * @param tag
      */
-    public final void sendAction(String tag) {
+    public final void sendAction(String tag, String action) {
         if (Build.VERSION.SDK_INT >= 10) {
             if (Build.VERSION.SDK_INT >= 23) {
                 if (permissionExist()) {
@@ -135,10 +144,10 @@ public class UserTracker {
                     if (mTrackerFactory == null)
                         mTrackerFactory = new TrackerFactory(mContext);
 
-                    mTracker.send(mTrackerFactory.newActionTracking(tag));
+                    mTracker.send(mTrackerFactory.newActionTracking(tag, action));
                 }
             } else {
-                mTracker.send(mTrackerFactory.newActionTracking(tag));
+                mTracker.send(mTrackerFactory.newActionTracking(tag, action));
             }
 
 

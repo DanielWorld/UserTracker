@@ -2,6 +2,7 @@ package com.danielworld.usertracker;
 
 import android.content.Context;
 
+import com.danielpark.androidlibrary.StringUtil;
 import com.danielpark.androidlibrary.app.AppUtil;
 import com.danielpark.androidlibrary.log.Logger;
 import com.danielworld.usertracker.model.TrackingModel;
@@ -55,38 +56,46 @@ public class TrackerFactory {
         tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getInstance().getMetaDataValue(mContext));
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.FIRST_RUN.toAcronymCode());
         tracking.putValuePair(TrackingMapKey.TRACKING_TAG, "");
+        tracking.putValuePair(TrackingMapKey.TRACKING_ACTION, "");
+
         addCommonInfo(tracking);
         return tracking;
     }
-    public TrackingModel newForegroundTracking(String tag){
+
+    public TrackingModel newForegroundTracking(String tag, String action){
         LOG.i(TAG, "New Foreground tracking.");
 
         TrackingModel tracking = new TrackingModel();
         tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getInstance().getMetaDataValue(mContext));
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.FOREGROUND.toAcronymCode());
-        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
+        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, StringUtil.getInstance().setNullToEmpty(tag));
+        tracking.putValuePair(TrackingMapKey.TRACKING_ACTION, StringUtil.getInstance().setNullToEmpty(action));
 
         addCommonInfo(tracking);
         return tracking;
     }
-    public TrackingModel newBackgroundTracking(String tag){
+
+    public TrackingModel newBackgroundTracking(String tag, String action){
         LOG.i(TAG, "New Background tracking.");
 
         TrackingModel tracking = new TrackingModel();
         tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getInstance().getMetaDataValue(mContext));
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.BACKGROUND.toAcronymCode());
-        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
+        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, StringUtil.getInstance().setNullToEmpty(tag));
+        tracking.putValuePair(TrackingMapKey.TRACKING_ACTION, StringUtil.getInstance().setNullToEmpty(action));
 
         addCommonInfo(tracking);
         return tracking;
     }
-    public TrackingModel newActionTracking(String tag){
+
+    public TrackingModel newActionTracking(String tag, String action){
         LOG.i(TAG, "New Action tracking.");
 
         TrackingModel tracking = new TrackingModel();
         tracking.putValuePair(TrackingMapKey.TRACKING_APP_ID, AppUtil.getInstance().getMetaDataValue(mContext));
         tracking.putValuePair(TrackingMapKey.TRACKING_EVENT, TrackingModel.TrackingEvent.ACTION.toAcronymCode());
-        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, tag);
+        tracking.putValuePair(TrackingMapKey.TRACKING_TAG, StringUtil.getInstance().setNullToEmpty(tag));
+        tracking.putValuePair(TrackingMapKey.TRACKING_ACTION, StringUtil.getInstance().setNullToEmpty(action));
 
         addCommonInfo(tracking);
         return tracking;

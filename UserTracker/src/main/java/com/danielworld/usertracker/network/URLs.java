@@ -20,8 +20,8 @@ public class URLs {
         isDebug = flag;
     }
 
-    private static final String URL_HOST = "http://192.168.0.6:8080";
-    private static final String URL_DEV = "http://192.168.0.6:8080";
+    private static final String URL_HOST = "http://192.168.0.2:8080";
+    private static final String URL_DEV = "http://192.168.0.2:8080";
 
     /**
      * Method
