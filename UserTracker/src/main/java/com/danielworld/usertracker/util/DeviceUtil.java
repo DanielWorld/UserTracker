@@ -6,8 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
-import com.danielpark.androidlibrary.StringUtil;
-import com.danielpark.androidlibrary.log.Logger;
+import com.danielworld.usertracker.util.log.Logger;
 import com.danielworld.usertracker.model.info.ApplicationInfo;
 import com.danielworld.usertracker.model.info.DeviceInfo;
 import com.danielworld.usertracker.model.info.EnvironmentInfo;

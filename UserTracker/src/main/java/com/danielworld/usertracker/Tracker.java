@@ -3,9 +3,9 @@ package com.danielworld.usertracker;
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.danielpark.androidlibrary.StringUtil;
-import com.danielpark.androidlibrary.app.AppUtil;
-import com.danielpark.androidlibrary.log.Logger;
+import com.danielworld.usertracker.util.StringUtil;
+import com.danielworld.usertracker.util.app.AppUtil;
+import com.danielworld.usertracker.util.log.Logger;
 import com.danielworld.usertracker.model.TrackingModel;
 import com.danielworld.usertracker.network.SendTrackingInfo;
 import com.danielworld.usertracker.network.URLs;

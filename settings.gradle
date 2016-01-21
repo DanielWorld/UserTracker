@@ -1,4 +1,5 @@
 include ':app', ':UserTracker'
+//include ':AndroidLibrary'
+//project(':AndroidLibrary').projectDir = new File('../Android/androidlibrary')
 
-include ':AndroidLibrary'
-project(':AndroidLibrary').projectDir = new File('../Android/androidlibrary')
+

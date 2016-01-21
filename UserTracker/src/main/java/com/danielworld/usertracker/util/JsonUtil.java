@@ -1,6 +1,6 @@
 package com.danielworld.usertracker.util;
 
-import com.danielpark.androidlibrary.log.Logger;
+import com.danielworld.usertracker.util.log.Logger;
 import com.danielworld.usertracker.model.TrackingModel;
 
 import java.util.ArrayList;

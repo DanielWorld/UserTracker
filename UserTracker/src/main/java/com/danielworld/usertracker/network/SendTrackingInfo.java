@@ -4,10 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.danielpark.androidlibrary.StringUtil;
-import com.danielpark.androidlibrary.google.adid.GoogleAdvertisingIdClient;
-import com.danielpark.androidlibrary.google.adid.interfaces.OnAdvertisingIDcompleteListener;
-import com.danielpark.androidlibrary.log.Logger;
+import com.danielworld.usertracker.util.StringUtil;
+import com.danielworld.usertracker.util.google.adid.GoogleAdvertisingIdClient;
+import com.danielworld.usertracker.util.google.adid.interfaces.OnAdvertisingIDcompleteListener;
+import com.danielworld.usertracker.util.log.Logger;
 import com.danielworld.usertracker.database.SQLiteHelper;
 import com.danielworld.usertracker.model.TrackingModel;
 import com.danielworld.usertracker.preference.SharePref;

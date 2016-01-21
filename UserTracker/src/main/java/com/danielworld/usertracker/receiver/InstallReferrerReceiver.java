@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.danielpark.androidlibrary.StringUtil;
-import com.danielpark.androidlibrary.log.Logger;
+import com.danielworld.usertracker.util.StringUtil;
+import com.danielworld.usertracker.util.log.Logger;
 import com.danielworld.usertracker.preference.SharePref;
 import com.danielworld.usertracker.service.TrackingService;
 

@@ -9,9 +9,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.SystemClock;
 
-import com.danielpark.androidlibrary.StringUtil;
-import com.danielpark.androidlibrary.app.AppUtil;
-import com.danielpark.androidlibrary.log.Logger;
+import com.danielworld.usertracker.util.StringUtil;
+import com.danielworld.usertracker.util.app.AppUtil;
+import com.danielworld.usertracker.util.log.Logger;
 import com.danielworld.usertracker.TrackerFactory;
 import com.danielworld.usertracker.database.SQLiteHelper;
 import com.danielworld.usertracker.model.TrackingModel;
