@@ -62,40 +62,6 @@ You can get UserTracker like this
 synchronized public static final UserTracker getInstance(Context context)
 </pre>
 
-### Caution!! From Android M (6.0), You must request permissions so you do have to write these script first before use below 4 main methods
-
-<pre>
-if (Build.VERSION.SDK_INT >= 23) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED ||
-                    ContextCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED ||
-                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                    ) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 122);
-            }
-            
-        
-//        ....
-//        ....
-        @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case 122:
-                if(grantResults.length <= 0){
-                    return;
-                }
-
-                for(int results : grantResults){
-                    if(results != PackageManager.PERMISSION_GRANTED){
-                        return;
-                    }
-                }
-                UserTracker.getInstance(this).sendFirstRun();
-                break;
-        }
-    }
-</pre>
-- Don't care about request int numbers. you can set whatever you want later.
-
 UserTracker gives you 4 methods
 - public final void sendFirstRun()
 - public final void sendForeground(String tag)
