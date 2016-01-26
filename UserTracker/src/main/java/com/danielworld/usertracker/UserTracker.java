@@ -27,32 +27,8 @@ public class UserTracker {
 
     private UserTracker(Context context) {
         this.mContext = context;
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (permissionExist()) {
-                this.mTracker = new Tracker(context);
-                this.mTrackerFactory = new TrackerFactory(context);
-            }
-        } else {
-            this.mTracker = new Tracker(context);
-            this.mTrackerFactory = new TrackerFactory(context);
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    private boolean permissionExist() {
-        if (mContext.checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            return false;
-        }
-
-        if (mContext.checkSelfPermission(Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
-            return false;
-        }
-
-        if (mContext.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            return false;
-        }
-        return true;
+        this.mTracker = new Tracker(context);
+        this.mTrackerFactory = new TrackerFactory(context);
     }
 
     /**
@@ -61,18 +37,7 @@ public class UserTracker {
      */
     public final void sendFirstRun() {
         if (Build.VERSION.SDK_INT >= 10) {
-            if (Build.VERSION.SDK_INT >= 23) {
-                if (permissionExist()) {
-                    if (mTracker == null)
-                        mTracker = new Tracker(mContext);
-                    if (mTrackerFactory == null)
-                        mTrackerFactory = new TrackerFactory(mContext);
-
-                    mTracker.send(mTrackerFactory.newFirstRunTracking());
-                }
-            } else {
-                mTracker.send(mTrackerFactory.newFirstRunTracking());
-            }
+            mTracker.send(mTrackerFactory.newFirstRunTracking());
         }
     }
 
@@ -86,18 +51,7 @@ public class UserTracker {
      */
     public final void sendForeground(String tag, String action) {
         if (Build.VERSION.SDK_INT >= 10) {
-            if (Build.VERSION.SDK_INT >= 23) {
-                if (permissionExist()) {
-                    if (mTracker == null)
-                        mTracker = new Tracker(mContext);
-                    if (mTrackerFactory == null)
-                        mTrackerFactory = new TrackerFactory(mContext);
-
-                    mTracker.send(mTrackerFactory.newForegroundTracking(tag, action));
-                }
-            } else {
-                mTracker.send(mTrackerFactory.newForegroundTracking(tag, action));
-            }
+            mTracker.send(mTrackerFactory.newForegroundTracking(tag, action));
         }
     }
 
@@ -111,19 +65,7 @@ public class UserTracker {
      */
     public final void sendBackground(String tag, String action) {
         if (Build.VERSION.SDK_INT >= 10) {
-            if (Build.VERSION.SDK_INT >= 23) {
-                if (permissionExist()) {
-                    if (mTracker == null)
-                        mTracker = new Tracker(mContext);
-                    if (mTrackerFactory == null)
-                        mTrackerFactory = new TrackerFactory(mContext);
-
-                    mTracker.send(mTrackerFactory.newBackgroundTracking(tag, action));
-                }
-            } else {
-                mTracker.send(mTrackerFactory.newBackgroundTracking(tag, action));
-            }
-
+            mTracker.send(mTrackerFactory.newBackgroundTracking(tag, action));
         }
     }
 
@@ -137,20 +79,7 @@ public class UserTracker {
      */
     public final void sendAction(String tag, String action) {
         if (Build.VERSION.SDK_INT >= 10) {
-            if (Build.VERSION.SDK_INT >= 23) {
-                if (permissionExist()) {
-                    if (mTracker == null)
-                        mTracker = new Tracker(mContext);
-                    if (mTrackerFactory == null)
-                        mTrackerFactory = new TrackerFactory(mContext);
-
-                    mTracker.send(mTrackerFactory.newActionTracking(tag, action));
-                }
-            } else {
-                mTracker.send(mTrackerFactory.newActionTracking(tag, action));
-            }
-
-
+            mTracker.send(mTrackerFactory.newActionTracking(tag, action));
         }
     }
 }
